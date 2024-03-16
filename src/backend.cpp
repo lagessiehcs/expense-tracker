@@ -39,7 +39,7 @@ Group add_group(std::string group_name, std::vector<Group> &group_list)
             return group;
         }
     }
-    Group new_group(group_name, group_list.size());
+    Group new_group(group_name);
     group_list.push_back(new_group);
 
     return new_group;

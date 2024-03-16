@@ -16,8 +16,12 @@ private:
     std::vector<int> _member_ids;
     std::vector<Expense> _expenses;
 
+    // static class member: shared across all class objects
+    // inline: so we can initialize it here.
+    static inline unsigned counter = 0;
+
 public:
-    Group(std::string = "", int = {});
+    Group(std::string = "");
     int id() const;
     std::string name() const;
     std::vector<int> member_ids() const;
