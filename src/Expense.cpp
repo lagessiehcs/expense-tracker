@@ -10,7 +10,7 @@ int Expense::id() const{
     return _id;
 };
 
-int Expense::amount() const{
+int Expense::amount() const{ 
     return _amount;
 };
 

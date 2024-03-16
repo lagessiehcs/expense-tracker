@@ -8,6 +8,7 @@
 
 class User
 {
+    // TODO: add a static counter to assign new user id rather than rely on the number of users in user_list
 private:
     std::string _name;
     int _id;

@@ -10,7 +10,7 @@ User add_user(std::string name, std::vector<User> &user_list)
             return user; // User with the given name already exists, exit the function
         }
     }
-
+ 
     // User not found, create a new one
     User new_user(name, user_list.size());
     user_list.push_back(new_user);

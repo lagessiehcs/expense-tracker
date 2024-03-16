@@ -10,7 +10,7 @@ Group::Group(std::string name, int id)
 
 int Group::id() const{
     return _id;
-}
+} 
 
 std::string Group::name() const{
     return _name;

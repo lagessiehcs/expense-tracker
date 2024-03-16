@@ -4,7 +4,7 @@ import string
 
 users_number  = 500
 groups_number = 100
-transactions_number = 1000
+transactions_number = 1000 
 
 min_group_members_count = 2
 max_group_members_count = 50

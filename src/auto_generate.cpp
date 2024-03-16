@@ -10,7 +10,7 @@ void import_data(std::ifstream &file, std::vector<User> &user_list, std::vector<
         // Skip the "Users" line
         if (line.find("Users") != std::string::npos)
         {
-            continue;
+            continue; 
         }
 
         // Skip empty lines
