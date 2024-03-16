@@ -14,6 +14,9 @@ private:
     int _id;
     std::map<int, int> _balance;
     std::vector<int> _group_ids;
+
+    // static class member: shared across all class objects
+    // inline: so we can initialize it here.
     static inline unsigned counter = 0;
 
 public:
