@@ -10,22 +10,24 @@ User add_user(std::string name, std::vector<User> &user_list)
             return user; // User with the given name already exists, exit the function
         }
     }
- 
+
     // User not found, create a new one
-    User new_user(name, user_list.size());
+    User new_user(name);
     user_list.push_back(new_user);
     return new_user;
 }
 
 void add_user_to_group(User &user, Group &group)
 {
-    for(const auto& member_id: group.member_ids()){
-        if(user.id()==member_id) {
+    for (const auto &member_id : group.member_ids())
+    {
+        if (user.id() == member_id)
+        {
             return;
         }
     }
-        group.add_member(user.id());
-        user.join_group(group.id());
+    group.add_member(user.id());
+    user.join_group(group.id());
 }
 
 Group add_group(std::string group_name, std::vector<Group> &group_list)

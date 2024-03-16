@@ -1,8 +1,8 @@
 #include "../inc/User.h"
 #include <cmath>
 
-User::User(std::string name, int id)
-    : _name(name), _id(id)
+User::User(std::string name)
+    : _name(name), _id(counter++)
 {
 }
 

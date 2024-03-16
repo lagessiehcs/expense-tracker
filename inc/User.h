@@ -8,15 +8,16 @@
 
 class User
 {
-    // TODO: add a static counter to assign new user id rather than rely on the number of users in user_list
+
 private:
     std::string _name;
     int _id;
     std::map<int, int> _balance;
     std::vector<int> _group_ids;
+    static inline unsigned counter = 0;
 
 public:
-    User(std::string name = "", int id = {});
+    User(std::string name = "");
     std::string name() const;
     int id() const;
     std::vector<int> group_ids() const;
