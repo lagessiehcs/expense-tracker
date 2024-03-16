@@ -1,6 +1,6 @@
 #include <string>
-#include "frontend.h"
-#include "auto_generate.h"
+#include "../inc/frontend.h"
+#include "../inc/auto_generate.h"
 
 int main()
 {

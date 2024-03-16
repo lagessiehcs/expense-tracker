@@ -1,4 +1,4 @@
-#include "frontend.h"
+#include "../inc/frontend.h"
 
 void update_terminal(int screen_id ,int user_id, int group_id,
                      std::vector<User>& user_list, std::vector<Group>& group_list) {

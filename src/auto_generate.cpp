@@ -1,5 +1,5 @@
-#include "auto_generate.h"
-#include "printers.h"
+#include "../inc/auto_generate.h"
+#include "../inc/printers.h"
 
 void import_data(std::ifstream &file, std::vector<User> &user_list, std::vector<Group> &group_list)
 {

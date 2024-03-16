@@ -10,7 +10,7 @@
 #include "User.h"
 #include "backend.h"
 
-void import_data(std::ifstream&, std::vector<User>&, std::vector<Group>&);
-void auto_run(std::vector<User>& user_list, std::vector<Group>& group_list);
+void import_data(std::ifstream &, std::vector<User> &, std::vector<Group> &);
+void auto_run(std::vector<User> &user_list, std::vector<Group> &group_list);
 
 #endif
