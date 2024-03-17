@@ -1,43 +1,45 @@
 
 #include "../inc/printers.h"
 
-void print_all_users(const std::vector<User> &user_list)
+void print_all_users(const std::unordered_map<unsigned, User> &user_umap)
 {
 
-    if (user_list.empty())
+    if (user_umap.empty())
     {
         std::cout << "No users yet! Go back and create a user!\n";
     }
     else
     {
         std::cout << "Users:\n";
-        for (const auto &user : user_list)
+        for (const auto &[id, user] : user_umap)
         {
-            std::cout << "(" << user.id() + 1 << ") " << user.name() << "\n";
+            std::cout << "(" << id + 1 << ") " << user.name() << "\n";
         }
     }
 }
 
-void print_all_groups(const std::vector<Group> &group_list)
+void print_all_groups(const std::unordered_map<unsigned, Group> &group_umap)
 {
 
-    if (group_list.empty())
+    if (group_umap.empty())
     {
         std::cout << "No groups yet! Go back and create a group!\n";
     }
     else
     {
         std::cout << "Groups: \n";
-        for (const auto &group : group_list)
+        for (const auto &[id, group] : group_umap)
         {
-            std::cout << "(" << group.id() + 1 << ") " << group.name() << "\n";
+            std::cout << "(" << id + 1 << ") " << group.name() << "\n";
         }
     }
 }
 
-void print_user_groups(int user_id, const std::vector<User> &user_list, const std::vector<Group> &group_list)
+void print_user_groups(unsigned user_id, const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap)
 {
-    if (user_list[user_id].group_ids().empty())
+    const auto &group_ids = user_umap.find(user_id)->second.group_ids();
+
+    if (group_ids.empty())
     {
         std::cout << "You did not join a group yet!\n";
         std::cout << "Go back and join or create a group!\n";
@@ -45,28 +47,29 @@ void print_user_groups(int user_id, const std::vector<User> &user_list, const st
     else
     {
         std::cout << "My groups:\n";
-        for (auto id : user_list[user_id].group_ids())
+        for (auto id : group_ids)
         {
-            std::cout << "(" << id + 1 << ") " << group_list[id].name() << "\n";
+            std::cout << "(" << id + 1 << ") " << group_umap.find(id)->second.name() << "\n";
         }
     }
 }
 
-void print_expenses(int group_id, const std::vector<User> &user_list, const std::vector<Group> &group_list)
+void print_expenses(unsigned group_id, const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap)
 {
-    if (group_list[group_id].expenses().empty())
+    const auto &expenses = group_umap.find(group_id)->second.expenses();
+    if (expenses.empty())
     {
         std::cout << "No expenses yet!\n";
     }
     else
     {
-        for (const auto &expense : group_list[group_id].expenses())
+        for (const auto &expense : expenses)
         {
-            std::cout << "(" << expense.id() + 1 << ") " << user_list[expense.payer_id()].name();
+            std::cout << "(" << expense.id() + 1 << ") " << user_umap.find(expense.payer_id())->second.name();
             std::cout << " paid " << expense.amount() * 0.01 << " Euro for: ";
             for (auto id : expense.payee_ids())
             {
-                std::cout << user_list[id].name();
+                std::cout << user_umap.find(id)->second.name();
                 if (id != expense.payee_ids().back())
                 {
                     std::cout << ", ";

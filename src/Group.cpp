@@ -40,7 +40,7 @@ void Group::add_expense(const Expense &expense)
     _expenses.push_back(expense);
 }
 
-void Group::update_member_balance(const Expense &expense, std::vector<User> &user_list)
+void Group::update_member_balance(const Expense &expense, std::unordered_map<unsigned, User> &user_umap)
 {
 
     auto payee_number = expense.payee_ids().size();
@@ -49,19 +49,19 @@ void Group::update_member_balance(const Expense &expense, std::vector<User> &use
     {
         if (member_id == expense.payer_id())
         {
-            user_list[member_id].update_balance(_id, individual_amount * payee_number);
+            user_umap[member_id].update_balance(_id, individual_amount * payee_number);
         }
         for (auto payee_id : expense.payee_ids())
         {
             if (member_id == payee_id)
             {
-                user_list[member_id].update_balance(_id, -individual_amount);
+                user_umap[member_id].update_balance(_id, -individual_amount);
             }
         }
     }
 }
 
-void Group::create_settlement(std::vector<User> &user_list)
+void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
 {
 
     std::vector<int> debtor_ids;
@@ -69,7 +69,7 @@ void Group::create_settlement(std::vector<User> &user_list)
 
     for (auto member_id : _member_ids)
     {
-        auto user_balance = user_list[member_id].balance()[_id];
+        auto user_balance = user_umap[member_id].balance()[_id];
         if (user_balance < 0)
         {
             debtor_ids.push_back(member_id);
@@ -83,8 +83,8 @@ void Group::create_settlement(std::vector<User> &user_list)
     while (not debtor_ids.empty())
     {
 
-        auto &creditor = user_list[creditor_ids.back()];
-        auto &debtor = user_list[debtor_ids.back()];
+        auto &creditor = user_umap[creditor_ids.back()];
+        auto &debtor = user_umap[debtor_ids.back()];
 
         int transaction_amount = -debtor.balance()[_id];
         std::cout << debtor.name() << " owes " << creditor.name() << " " << transaction_amount * 0.01 << " Euro.\n";
@@ -108,18 +108,19 @@ void Group::create_settlement(std::vector<User> &user_list)
     std::cout << "The group is now settled!\n";
 }
 
-void Group::print_group_members(const std::vector<User> &user_list, const std::vector<Group> &group_list) const
+void Group::print_group_members(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap) const
 {
-    if (group_list[_id].member_ids().empty())
+    const auto &member_ids = group_umap.find(_id)->second.member_ids();
+    if (group_umap.find(_id)->second.member_ids().empty())
     {
         std::cout << "This group is empty!\n";
     }
     else
     {
         std::cout << "Group member(s):\n";
-        for (auto member_id : group_list[_id].member_ids())
+        for (auto member_id : group_umap.find(_id)->second.member_ids())
         {
-            std::cout << "(" << member_id + 1 << ") " << user_list[member_id].name() << "\n";
+            std::cout << "(" << member_id + 1 << ") " << user_umap.find(member_id)->second.name() << "\n";
         }
     }
 }

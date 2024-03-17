@@ -12,7 +12,7 @@ private:
     std::vector<int> _payee_ids;
 
 public:
-    Expense(int id = 0, int amount = 0, int payer_id = 0, std::vector<int> payee_ids = {});
+    Expense(int id = 0, int amount = 0, unsigned payer_id = 0, std::vector<int> payee_ids = {});
     int id() const;
     int amount() const;
     int payer_id() const;

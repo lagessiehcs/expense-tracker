@@ -6,12 +6,13 @@
 #include "User.h"
 #include "Expense.h"
 #include <cmath>
+#include <unordered_map>
 
 class Settlement;
 class Group
 {
 private:
-    int _id;
+    unsigned _id;
     std::string _name;
     std::vector<int> _member_ids;
     std::vector<Expense> _expenses;
@@ -29,9 +30,9 @@ public:
     void edit_expenses(int, int);
     void add_member(const int user_id);
     void add_expense(const Expense &expense);
-    void update_member_balance(const Expense &expense, std::vector<User> &user_list);
-    void create_settlement(std::vector<User> &user_list);
-    void print_group_members(const std::vector<User> &user_list, const std::vector<Group> &group_list) const;
+    void update_member_balance(const Expense &expense, std::unordered_map<unsigned, User> &user_umap);
+    void create_settlement(std::unordered_map<unsigned, User> &user_umap);
+    void print_group_members(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap) const;
 };
 
 #endif

@@ -1,19 +1,19 @@
 #include "../inc/backend.h"
 #include <algorithm>
 
-User add_user(std::string name, std::vector<User> &user_list)
+User add_user(std::string name, std::unordered_map<unsigned, User> &user_list)
 {
     for (const auto &user : user_list)
     {
-        if (user.name().compare(name) == 0)
+        if (user.second.name().compare(name) == 0)
         {
-            return user; // User with the given name already exists, exit the function
+            return user.second; // User with the given name already exists, exit the function
         }
     }
 
     // User not found, create a new one
     User new_user(name);
-    user_list.push_back(new_user);
+    user_list.insert(std::make_pair(new_user.id(), new_user));
     return new_user;
 }
 
@@ -30,22 +30,22 @@ void add_user_to_group(User &user, Group &group)
     user.join_group(group.id());
 }
 
-Group add_group(std::string group_name, std::vector<Group> &group_list)
+unsigned add_group(std::string group_name, std::unordered_map<unsigned, Group> &group_umap)
 {
-    for (const auto &group : group_list)
+    for (const auto &group : group_umap)
     {
-        if (group.name().compare(group_name) == 0)
+        if (group.second.name().compare(group_name) == 0)
         {
-            return group;
+            return group.second.id();
         }
     }
     Group new_group(group_name);
-    group_list.push_back(new_group);
+    group_umap.insert(std::make_pair(new_group.id(), new_group));
 
-    return new_group;
+    return new_group.id();
 }
 
-Expense add_expense_to_group(int amount, int payer_id, std::vector<int> payee_ids, Group &group, std::vector<User> &user_list)
+Expense add_expense_to_group(int amount, int payer_id, std::vector<int> payee_ids, Group &group, std::unordered_map<unsigned, User> &user_list)
 {
     Expense expense(group.expenses().size(), amount, payer_id, payee_ids);
     group.add_expense(expense);

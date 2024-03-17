@@ -1,7 +1,7 @@
 #include "../inc/auto_generate.h"
 #include "../inc/printers.h"
 
-void import_data(std::ifstream &file, std::vector<User> &user_list, std::vector<Group> &group_list)
+void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_umap, std::unordered_map<unsigned, Group> &group_umap)
 {
     std::string line;
     // Read the file line by line until reaching the "Groups" line
@@ -10,7 +10,7 @@ void import_data(std::ifstream &file, std::vector<User> &user_list, std::vector<
         // Skip the "Users" line
         if (line.find("Users") != std::string::npos)
         {
-            continue; 
+            continue;
         }
 
         // Skip empty lines
@@ -30,7 +30,7 @@ void import_data(std::ifstream &file, std::vector<User> &user_list, std::vector<
                    line.end());
 
         // add user with the name stored in line
-        add_user(line, user_list);
+        add_user(line, user_umap);
     }
 
     // Read the lines under "Groups" until reaching the "Expenses" line
@@ -75,18 +75,18 @@ void import_data(std::ifstream &file, std::vector<User> &user_list, std::vector<
         std::istringstream membersStream(members);
         std::string member;
 
-        // store group in the vector
-        add_group(group_name, group_list);
+        // store group in the unordered_map
+        auto group_id = add_group(group_name, group_umap);
 
         // Add all group users
         while (std::getline(membersStream, member, ','))
         {
 
-            for (auto &user : user_list)
+            for (auto &user : user_umap)
             {
-                if (user.name().compare(member) == 0)
+                if (user.second.name().compare(member) == 0)
                 {
-                    add_user_to_group(user, group_list.back());
+                    add_user_to_group(user.second, group_umap.find(group_id)->second);
                     break;
                 }
             }
@@ -162,70 +162,70 @@ void import_data(std::ifstream &file, std::vector<User> &user_list, std::vector<
         std::vector<int> payee_ids{};
         while (std::getline(payeeStream, payee_name, ','))
         {
-            for (const auto &user : user_list)
+            for (const auto &[id, user] : user_umap)
             {
                 if (user.name().compare(payee_name) == 0)
                 {
-                    payee_ids.push_back(user.id());
+                    payee_ids.push_back(id);
                     break;
                 }
             }
         }
 
         // Find payer_id
-        int payer_id{};
-        for (const auto &user : user_list)
+        unsigned payer_id{};
+        for (const auto &[id, user] : user_umap)
         {
             if (user.name().compare(payer_name) == 0)
             {
-                payer_id = user.id();
+                payer_id = id;
                 break;
             }
         }
 
         // Find the corresponding group and add the expense
-        for (auto &group : group_list)
+        for (auto &group : group_umap)
         {
-            if (group.name().compare(groupName) == 0)
+            if (group.second.name().compare(groupName) == 0)
             {
-                add_expense_to_group(amount * 100, payer_id, payee_ids, group, user_list);
+                add_expense_to_group(amount * 100, payer_id, payee_ids, group.second, user_umap);
             }
         }
     }
 }
 
-void auto_run(std::vector<User> &user_list, std::vector<Group> &group_list)
+void auto_run(std::unordered_map<unsigned, User> &user_umap, std::unordered_map<unsigned, Group> &group_umap)
 {
     // Print all users
     std::cout << "_________________________\n";
     std::cout << "Users list:" << std::endl;
     std::cout << "_________________________\n";
-    print_all_users(user_list);
+    print_all_users(user_umap);
 
     // Print all Groups
     std::cout << "_________________________\n";
     std::cout << "Groups list:" << std::endl;
     std::cout << "_________________________\n";
-    print_all_groups(group_list);
+    print_all_groups(group_umap);
 
     // Print all group members
     std::cout << std::endl;
-    for (auto &group : group_list)
+    for (auto &[id, group] : group_umap)
     {
         std::cout << "_________________________\n";
         std::cout << group.name() << "'s information" << std::endl;
         std::cout << "_________________________\n";
         std::cout << std::endl;
         // Print all group members
-        group.print_group_members(user_list, group_list);
+        group.print_group_members(user_umap, group_umap);
         std::cout << std::endl;
         // Print all group expenses
         std::cout << "Groups expenses:" << std::endl;
-        print_expenses(group.id(), user_list, group_list);
+        print_expenses(id, user_umap, group_umap);
         std::cout << std::endl;
         // Create and print all group settlements
         std::cout << "Groups settlements:" << std::endl;
-        group.create_settlement(user_list);
+        group.create_settlement(user_umap);
         std::cout << std::endl;
     }
 };
