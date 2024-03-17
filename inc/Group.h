@@ -14,7 +14,7 @@ class Group
 private:
     unsigned _id;
     std::string _name;
-    std::vector<int> _member_ids;
+    std::vector<unsigned> _member_ids;
     std::vector<Expense> _expenses;
 
     // static class member: shared across all class objects
@@ -23,12 +23,12 @@ private:
 
 public:
     Group(std::string = "");
-    int id() const;
+    unsigned id() const;
     std::string name() const;
-    std::vector<int> member_ids() const;
+    std::vector<unsigned> member_ids() const;
     std::vector<Expense> expenses() const;
-    void edit_expenses(int, int);
-    void add_member(const int user_id);
+    void edit_expenses(unsigned, unsigned);
+    void add_member(const unsigned user_id);
     void add_expense(const Expense &expense);
     void update_member_balance(const Expense &expense, std::unordered_map<unsigned, User> &user_umap);
     void create_settlement(std::unordered_map<unsigned, User> &user_umap);

@@ -159,7 +159,7 @@ void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_u
         std::string payee_name;
 
         // Find payee_ids
-        std::vector<int> payee_ids{};
+        std::vector<unsigned> payee_ids{};
         while (std::getline(payeeStream, payee_name, ','))
         {
             for (const auto &[id, user] : user_umap)

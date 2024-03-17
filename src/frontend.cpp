@@ -1,6 +1,6 @@
 #include "../inc/frontend.h"
 
-void update_terminal(int screen_id, int user_id, int group_id,
+void update_terminal(unsigned screen_id, unsigned user_id, unsigned group_id,
                      std::unordered_map<unsigned, User> &user_umap, std::unordered_map<unsigned, Group> &group_umap)
 {
 
@@ -146,8 +146,8 @@ void update_terminal(int screen_id, int user_id, int group_id,
     }
 }
 
-void get_and_compute_input(int &input_int, float &input_float, std::string &input_str,
-                           int &screen_id, int &user_id, int &group_id,
+void get_and_compute_input(unsigned &input_int, float &input_float, std::string &input_str,
+                           unsigned &screen_id, unsigned &user_id, unsigned &group_id,
                            std::unordered_map<unsigned, User> &user_umap, std::unordered_map<unsigned, Group> &group_umap)
 {
 
@@ -314,8 +314,8 @@ void get_and_compute_input(int &input_int, float &input_float, std::string &inpu
 
     case 8: // Add expense
     {
-        int user_input{};
-        std::vector<int> payee_ids{};
+        unsigned user_input{};
+        std::vector<unsigned> payee_ids{};
         std::cout << "Add expense in Euro: ";
         std::cin >> input_float;
         std::cout << "For whom are your paying?" << std::endl;

@@ -45,7 +45,7 @@ unsigned add_group(std::string group_name, std::unordered_map<unsigned, Group> &
     return new_group.id();
 }
 
-Expense add_expense_to_group(int amount, int payer_id, std::vector<int> payee_ids, Group &group, std::unordered_map<unsigned, User> &user_list)
+Expense add_expense_to_group(unsigned amount, unsigned payer_id, std::vector<unsigned> payee_ids, Group &group, std::unordered_map<unsigned, User> &user_list)
 {
     Expense expense(group.expenses().size(), amount, payer_id, payee_ids);
     group.add_expense(expense);
@@ -53,7 +53,7 @@ Expense add_expense_to_group(int amount, int payer_id, std::vector<int> payee_id
     return expense;
 }
 
-void edit_expense(Group &group, int expense_id, int new_amount)
+void edit_expense(Group &group, unsigned expense_id, unsigned new_amount)
 {
     group.edit_expenses(expense_id, new_amount);
 }

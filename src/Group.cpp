@@ -5,7 +5,7 @@ Group::Group(std::string name)
 {
 }
 
-int Group::id() const
+unsigned Group::id() const
 {
     return _id;
 }
@@ -15,7 +15,7 @@ std::string Group::name() const
     return _name;
 }
 
-std::vector<int> Group::member_ids() const
+std::vector<unsigned> Group::member_ids() const
 {
     return _member_ids;
 }
@@ -25,12 +25,12 @@ std::vector<Expense> Group::expenses() const
     return _expenses;
 }
 
-void Group::edit_expenses(int id, int amount)
+void Group::edit_expenses(unsigned id, unsigned amount)
 {
     _expenses[id].edit(amount);
 }
 
-void Group::add_member(const int user_id)
+void Group::add_member(const unsigned user_id)
 {
     _member_ids.push_back(user_id);
 }
@@ -64,8 +64,8 @@ void Group::update_member_balance(const Expense &expense, std::unordered_map<uns
 void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
 {
 
-    std::vector<int> debtor_ids;
-    std::vector<int> creditor_ids;
+    std::vector<unsigned> debtor_ids;
+    std::vector<unsigned> creditor_ids;
 
     for (auto member_id : _member_ids)
     {

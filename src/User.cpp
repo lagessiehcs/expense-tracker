@@ -11,32 +11,32 @@ std::string User::name() const
     return _name;
 }
 
-int User::id() const
+unsigned User::id() const
 {
     return _id;
 }
 
-std::vector<int> User::group_ids() const
+std::vector<unsigned> User::group_ids() const
 {
     return _group_ids;
 }
 
-void User::join_group(int group_id)
+void User::join_group(unsigned group_id)
 {
     _group_ids.push_back(group_id);
 }
 
-void User::update_balance(int group_id, int balance)
+void User::update_balance(unsigned group_id, unsigned balance)
 {
     _balance[group_id] += balance;
 }
 
-std::map<int, int> User::balance()
+std::map<unsigned, unsigned> User::balance()
 {
     return _balance;
 }
 
-void User::show_balance(int group_id)
+void User::show_balance(unsigned group_id)
 {
     std::cout << "Your balance:\n";
     if (_balance[group_id] == 0)
