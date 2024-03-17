@@ -31,7 +31,7 @@ void User::update_balance(unsigned group_id, unsigned balance)
     _balance[group_id] += balance;
 }
 
-std::map<unsigned, unsigned> User::balance()
+std::map<unsigned, int> User::balance()
 {
     return _balance;
 }

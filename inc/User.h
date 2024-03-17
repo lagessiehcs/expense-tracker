@@ -12,7 +12,7 @@ class User
 private:
     std::string _name;
     unsigned _id;
-    std::map<unsigned, unsigned> _balance;
+    std::map<unsigned, int> _balance;
     std::vector<unsigned> _group_ids;
 
     // static class member: shared across all class objects
@@ -26,7 +26,7 @@ public:
     std::vector<unsigned> group_ids() const;
     void join_group(unsigned group_id);
     void update_balance(unsigned group_id, unsigned balance);
-    std::map<unsigned, unsigned> balance();
+    std::map<unsigned, int> balance();
     void show_balance(unsigned group_id);
 };
 
