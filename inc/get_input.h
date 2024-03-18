@@ -3,4 +3,12 @@
 
 #include <iostream>
 
+void ignoreLine();
+
+bool extraction_success();
+
+unsigned get_unsigned();
+
+float get_float();
+
 #endif
