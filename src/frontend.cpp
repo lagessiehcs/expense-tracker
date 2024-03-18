@@ -161,7 +161,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
     case 1: // Start screen
 
         std::cout << "Input: ";
-        std::cin >> input_int;
+        input_int = get_unsigned();
 
         if (input_int == 0)
         {
@@ -187,7 +187,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
         }
 
         std::cout << "Input: ";
-        std::cin >> input_int;
+        input_int = get_unsigned();
 
         if (input_int == 0)
         {
@@ -220,7 +220,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
 
     case 4: // User screen
         std::cout << "Input: ";
-        std::cin >> input_int;
+        input_int = get_unsigned();
 
         if (input_int == 0)
         {
@@ -250,7 +250,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
         }
 
         std::cout << "Input: ";
-        std::cin >> input_int;
+        input_int = get_unsigned();
 
         if (input_int == 0)
         {
@@ -279,7 +279,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
     case 7: // group screen
 
         std::cout << "Input: ";
-        std::cin >> input_int;
+        input_int = get_unsigned();
 
         if (input_int == 0)
         {
@@ -317,13 +317,13 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
         unsigned user_input{};
         std::vector<unsigned> payee_ids{};
         std::cout << "Add expense in Euro: ";
-        std::cin >> input_float;
+        input_float = get_float();
         std::cout << "For whom are your paying?" << std::endl;
         group_umap[group_id].print_group_members(user_umap, group_umap);
         std::cout << "(0) Finished" << std::endl;
         while (1)
         {
-            std::cin >> user_input;
+            user_input = get_unsigned();
             if (user_input == 0)
             {
                 break;
@@ -346,7 +346,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
         }
 
         std::cout << "Input: ";
-        std::cin >> input_int;
+        input_int = get_unsigned();
 
         if (input_int == 0)
         {
@@ -364,7 +364,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
         }
 
         std::cout << "Input: ";
-        std::cin >> input_int;
+        input_int = get_unsigned();
 
         if (input_int == 0)
         {
@@ -380,7 +380,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
 
     case 11: // Create Settlement
         std::cout << "Input: ";
-        std::cin >> input_int;
+        input_int = get_unsigned();
 
         if (input_int == 0)
         {
@@ -391,7 +391,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
 
     case 12: // Leave group
         std::cout << "Input: ";
-        std::cin >> input_int;
+        input_int = get_unsigned();
 
         if (input_int == 0)
         {
@@ -402,7 +402,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
 
     case 13: // Change expense
         std::cout << "Change expense to Euro: ";
-        std::cin >> input_float;
+        input_float = get_float();
 
         std::cout << input_int << input_float;
         edit_expense(group_umap[group_id], input_int - 1, input_float * 100);
@@ -412,7 +412,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
 
     case 14: // See group members
         std::cout << "Input: ";
-        std::cin >> input_int;
+        input_int = get_unsigned();
 
         if (input_int == 0)
         {
@@ -422,7 +422,7 @@ void get_and_compute_input(unsigned &input_int, float &input_float, std::string 
 
     case 15: // See my balance
         std::cout << "Input: ";
-        std::cin >> input_int;
+        input_int = get_unsigned();
 
         if (input_int == 0)
         {
