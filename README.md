@@ -1,4 +1,4 @@
-Expense Tracker
+# Expense Tracker
 
 Hey, thank you for using our program!
 
@@ -47,4 +47,3 @@ The program consists of the following files:
 - ``auto_generate.cpp``: Contains the functions ``import_data`` and ``auto_run``. Which load and run a .csv file for performance tests.
 
 Have fun settling expenses with your friends!
-# ExpenseTracker
