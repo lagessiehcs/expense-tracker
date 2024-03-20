@@ -86,28 +86,20 @@ void StateChooseUser::_entry()
 {
     std::cout << "=================================================\n";
     print_all_users(_user_umap);
-    if (not _user_umap.empty())
-    {
-        std::cout << "(0) Back\n";
-    }
+    std::cout << std::endl;
+    std::cout << "(0) Back\n";
     std::cout << "=================================================\n";
 }
 
 void StateChooseUser::_during()
 {
     std::cout << "Input: ";
+    _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateChooseUser::transitions()
 {
-    if (_user_umap.empty())
-    {
-        return StateName::START;
-    }
-
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
-
     switch (_unsigned_input)
     {
     case 0:
@@ -232,27 +224,21 @@ void StateChooseGroup::_entry()
 {
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "=================================================\n";
-    print_all_groups(_group_umap);
-    if (not _group_umap.empty())
-    {
-        std::cout << "(0) Back\n";
-    }
+    print_user_groups(_user_id, _user_umap, _group_umap);
+    std::cout << std::endl;
+    std::cout << "(0) Back\n";
     std::cout << "=================================================\n";
 }
 
 void StateChooseGroup::_during()
 {
+    std::cout << "Input: ";
+    _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateChooseGroup::transitions()
 {
-    if (_user_umap[_user_id].group_ids().empty())
-    {
-        return StateName::USER_HOME;
-    }
-
-    _unsigned_input = get_unsigned();
-
     switch (_unsigned_input)
     {
     case 0:
@@ -276,30 +262,24 @@ void StateJoinGroup::_entry()
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "=================================================\n";
     print_all_groups(_group_umap);
-    if (not _group_umap.empty())
-    {
-        std::cout << "(0) Back\n";
-    }
+    std::cout << std::endl;
+    std::cout << "(0) Back\n";
     std::cout << "=================================================\n";
 }
 
 void StateJoinGroup::_during()
 {
+    std::cout << "Input: ";
+    _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateJoinGroup::transitions()
 {
-    if (_group_umap.empty())
-    {
-        return StateName::USER_HOME;
-    }
-
-    _unsigned_input = get_unsigned();
-
     switch (_unsigned_input)
     {
     case 0:
-        return StateName::START;
+        return StateName::USER_HOME;
 
     default:
         add_user_to_group(_user_umap[_user_id], _group_umap[_unsigned_input - 1]);
@@ -373,6 +353,7 @@ void StateGroupMember::_entry()
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
     std::cout << "=================================================\n";
     _group_umap[_group_id].print_group_members(_user_umap, _group_umap);
+    std::cout << std::endl;
     std::cout << "(0) Back\n";
     std::cout << "=================================================\n";
 }
@@ -386,12 +367,9 @@ void StateGroupMember::_during()
 
 StateName StateGroupMember::transitions()
 {
-    while (true)
+    if (_unsigned_input == 0)
     {
-        if (_unsigned_input == 0)
-        {
-            return StateName::GROUP_HOME;
-        }
+        return StateName::GROUP_HOME;
     }
 }
 
@@ -415,8 +393,9 @@ void StateAddExpense::_during()
     _float_input = get_float();
     std::cout << "For whom are your paying?" << std::endl;
     _group_umap[_group_id].print_group_members(_user_umap, _group_umap);
+    std::cout << std::endl;
     std::cout << "(0) Finished" << std::endl;
-    while (1)
+    while (true)
     {
         _unsigned_input = get_unsigned();
         if (_unsigned_input == 0)
@@ -430,13 +409,7 @@ void StateAddExpense::_during()
 
 StateName StateAddExpense::transitions()
 {
-    while (true)
-    {
-        if (_unsigned_input == 0)
-        {
-            return StateName::GROUP_HOME;
-        }
-    }
+    return StateName::GROUP_HOME;
 }
 
 //-----CHECK_EXPENSE----------------------------------------------
@@ -452,10 +425,8 @@ void StateCheckExpense::_entry()
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
     std::cout << "=================================================\n";
     print_expenses(_group_id, _user_umap, _group_umap);
-    if (_group_umap.find(_group_id)->second.expenses().empty())
-    {
-        std::cout << "(0) Back\n";
-    }
+    std::cout << std::endl;
+    std::cout << "(0) Back\n";
     std::cout << "=================================================\n";
 }
 
@@ -468,12 +439,9 @@ void StateCheckExpense::_during()
 
 StateName StateCheckExpense::transitions()
 {
-    while (true)
+    if (_unsigned_input == 0)
     {
-        if (_unsigned_input == 0)
-        {
-            return StateName::GROUP_HOME;
-        }
+        return StateName::GROUP_HOME;
     }
 }
 
@@ -490,7 +458,8 @@ void StateSettlement::_entry()
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
     std::cout << "=================================================\n";
     _group_umap[_group_id].create_settlement(_user_umap);
-    std::cout << "\n(0) Back\n";
+    std::cout << std::endl;
+    std::cout << "(0) Back\n";
     std::cout << "=================================================\n";
 }
 
@@ -503,12 +472,9 @@ void StateSettlement::_during()
 
 StateName StateSettlement::transitions()
 {
-    while (true)
+    if (_unsigned_input == 0)
     {
-        if (_unsigned_input == 0)
-        {
-            return StateName::GROUP_HOME;
-        }
+        return StateName::GROUP_HOME;
     }
 }
 
@@ -535,12 +501,9 @@ void StateLeaveGroup::_during()
 
 StateName StateLeaveGroup::transitions()
 {
-    while (true)
+    if (_unsigned_input == 0)
     {
-        if (_unsigned_input == 0)
-        {
-            return StateName::GROUP_HOME;
-        }
+        return StateName::GROUP_HOME;
     }
 }
 
@@ -570,11 +533,13 @@ void StateEditExpense::_during()
 
 StateName StateEditExpense::transitions()
 {
-    return StateName::GROUP_HOME;
+    if (_unsigned_input == 0)
+    {
+        return StateName::GROUP_HOME;
+    }
 }
 
 //-----BALANCE----------------------------------------------
-// TODO: Implement BALANCE
 
 StateBalance::StateBalance()
     : State(StateName::BALANCE)
@@ -587,6 +552,7 @@ void StateBalance::_entry()
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
     std::cout << "=================================================\n";
     _user_umap[_user_id].show_balance(_group_id);
+    std::cout << std::endl;
     std::cout << "(0) Back\n";
     std::cout << "=================================================\n";
 }
@@ -600,12 +566,9 @@ void StateBalance::_during()
 
 StateName StateBalance::transitions()
 {
-    while (true)
+    if (_unsigned_input == 0)
     {
-        if (_unsigned_input == 0)
-        {
-            return StateName::GROUP_HOME;
-        }
+        return StateName::GROUP_HOME;
     }
 }
 
@@ -626,6 +589,7 @@ void StateAutoGen::_entry()
 void StateAutoGen::_during()
 {
     auto_run(_user_umap, _group_umap);
+    std::cout << std::endl;
     std::cout << "(0) Exit\n";
 
     std::cout << "Input: ";
@@ -635,12 +599,9 @@ void StateAutoGen::_during()
 
 StateName StateAutoGen::transitions()
 {
-    while (true)
+    if (_unsigned_input == 0)
     {
-        if (_unsigned_input == 0)
-        {
-            return StateName::EXIT;
-        }
+        return StateName::EXIT;
     }
 }
 
@@ -660,8 +621,8 @@ void StateExit::_during()
 {
 }
 
-StateName StateExit::transitions()
-{
-    // If no transition specified, return the current State
-    return StateName::EXIT;
-}
+// StateName StateExit::transitions()
+// {
+//     // If no transition specified, return the current State
+//     return StateName::EXIT;
+// }

@@ -14,7 +14,7 @@ inline std::string INIT_TEXT = "================================================
 inline std::string START_TEXT = "=================================================\n"
                                 "(1) Login\n"
                                 "(2) Create new user\n"
-                                "(0) Exit\n"
+                                "\n(0) Exit\n"
                                 "=================================================\n";
 
 // inline std::string CHOOSE_USER_TEXT = "=================================================\n"
@@ -28,7 +28,7 @@ inline std::string USER_HOME_TEXT = "===========================================
                                     "(1) Join group\n"
                                     "(2) Create group\n"
                                     "(3) My groups\n"
-                                    "(0) Log-out\n"
+                                    "\n(0) Log-out\n"
                                     "=================================================\n";
 
 inline std::string CREATE_GROUP_TEXT = "=================================================\n"
@@ -42,7 +42,7 @@ inline std::string GROUP_HOME_TEXT = "==========================================
                                      "(4) Create Settlement\n"
                                      "(5) Group members\n"
                                      "(6) Leave group\n"
-                                     "(0) Back\n"
+                                     "\n(0) Back\n"
                                      "=================================================\n";
 
 // inline std::string GROUP_MEMBER_TEXT =
@@ -61,7 +61,7 @@ inline std::string ADD_EXPENSE_TEXT = "=========================================
 
 inline std::string LEAVE_GROUP_TEXT = "=================================================\n"
                                       "This feature is not yet available.\n"
-                                      "(0) Back\n"
+                                      "\n(0) Back\n"
                                       "=================================================\n";
 
 inline std::string EDIT_EXPENSE_TEXT = "=================================================\n"

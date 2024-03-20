@@ -226,6 +226,5 @@ void auto_run(std::unordered_map<unsigned, User> &user_umap, std::unordered_map<
         // Create and print all group settlements
         std::cout << "Groups settlements:" << std::endl;
         group.create_settlement(user_umap);
-        std::cout << std::endl;
     }
 };
