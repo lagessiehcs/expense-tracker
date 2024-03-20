@@ -1,4 +1,4 @@
-# 14: Expense Tracker
+Expense Tracker
 
 Hey, thank you for using our program!
 
