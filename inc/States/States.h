@@ -147,3 +147,107 @@ private:
 public:
     StateJoinGroup();
 };
+
+//-----GROUP_HOME----------------------------------------------
+
+class StateGroupHome : public State
+{
+private:
+    unsigned _unsigned_input;
+
+    std::unordered_map<unsigned, User> _user_umap;
+
+    void entry();
+
+    void during();
+
+    StateName transitions();
+
+public:
+    StateGroupHome();
+};
+
+//-----GROUP_MEMBER----------------------------------------------
+
+class StateGroupMember : public State
+{
+private:
+    unsigned _unsigned_input;
+
+    std::unordered_map<unsigned, User> _user_umap;
+
+    void entry();
+
+    void during();
+
+    StateName transitions();
+
+public:
+    StateGroupMember();
+};
+
+//-----ADD_EXPENSE----------------------------------------------
+
+class StateAddExpense : public State
+{
+private:
+    float _float_input;
+    unsigned _unsigned_input;
+
+    std::vector<unsigned> _payee_ids;
+
+    std::unordered_map<unsigned, User> _user_umap;
+
+    void entry();
+
+    void during();
+
+    StateName transitions();
+
+public:
+    StateAddExpense();
+};
+
+//-----CHECK_EXPENSE----------------------------------------------
+
+class StateCheckExpense : public State
+{
+private:
+    float _float_input;
+    unsigned _unsigned_input;
+
+    std::vector<unsigned> _payee_ids;
+
+    std::unordered_map<unsigned, User> _user_umap;
+
+    void entry();
+
+    void during();
+
+    StateName transitions();
+
+public:
+    StateCheckExpense();
+};
+
+//-----SETTLEMENT----------------------------------------------
+
+class StateSettlement : public State
+{
+private:
+    float _float_input;
+    unsigned _unsigned_input;
+
+    std::vector<unsigned> _payee_ids;
+
+    std::unordered_map<unsigned, User> _user_umap;
+
+    void entry();
+
+    void during();
+
+    StateName transitions();
+
+public:
+    StateSettlement();
+};

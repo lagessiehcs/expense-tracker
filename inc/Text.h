@@ -31,3 +31,23 @@ std::string USER_HOME_TEXT = "\n================================================
 std::string CREATE_GROUP_TEXT = "\n=================================================\n"
                                 "Enter group name!\n"
                                 "=================================================\n";
+
+std::string GROUP_HOME_TEXT = "\n=================================================\n"
+                              "(1) Add expense\n"
+                              "(2) Check expenses\n"
+                              "(3) My balance\n"
+                              "(4) Create Settlement\n"
+                              "(5) Group members\n"
+                              "(6) Leave group\n"
+                              "(0) Back\n"
+                              "=================================================\n";
+
+// std::string GROUP_MEMBER_TEXT =
+
+std::string ADD_EXPENSE_TEXT = "\n=================================================\n"
+                               "Add expense!\n"
+                               "=================================================\n";
+
+// std::string CHECK_EXPENSE_TEXT = "\n=================================================\n"
+//                                  "Check expense!\n"
+//                                  "=================================================\n";

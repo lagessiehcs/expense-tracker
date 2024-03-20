@@ -19,7 +19,7 @@ enum class StateName
     JOIN_GROUP,
 
     GROUP_HOME,
-    MEMBER_LIST,
+    GROUP_MEMBER,
     ADD_EXPENSE,
     CHECK_EXPENSE,
     SETTLEMENT,
