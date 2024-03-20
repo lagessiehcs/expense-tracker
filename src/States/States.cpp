@@ -367,9 +367,14 @@ void StateGroupMember::_during()
 
 StateName StateGroupMember::transitions()
 {
-    if (_unsigned_input == 0)
+    switch (_unsigned_input)
     {
+    case 0:
         return StateName::GROUP_HOME;
+
+    default:
+        std::cout << ERROR_TEXT;
+        return StateName::GROUP_MEMBER;
     }
 }
 
@@ -439,9 +444,14 @@ void StateCheckExpense::_during()
 
 StateName StateCheckExpense::transitions()
 {
-    if (_unsigned_input == 0)
+    switch (_unsigned_input)
     {
+    case 0:
         return StateName::GROUP_HOME;
+
+    default:
+        std::cout << ERROR_TEXT;
+        return StateName::CHECK_EXPENSE;
     }
 }
 
@@ -472,9 +482,14 @@ void StateSettlement::_during()
 
 StateName StateSettlement::transitions()
 {
-    if (_unsigned_input == 0)
+    switch (_unsigned_input)
     {
+    case 0:
         return StateName::GROUP_HOME;
+
+    default:
+        std::cout << ERROR_TEXT;
+        return StateName::SETTLEMENT;
     }
 }
 
@@ -501,9 +516,14 @@ void StateLeaveGroup::_during()
 
 StateName StateLeaveGroup::transitions()
 {
-    if (_unsigned_input == 0)
+    switch (_unsigned_input)
     {
+    case 0:
         return StateName::GROUP_HOME;
+
+    default:
+        std::cout << ERROR_TEXT;
+        return StateName::LEAVE_GROUP;
     }
 }
 
@@ -533,9 +553,14 @@ void StateEditExpense::_during()
 
 StateName StateEditExpense::transitions()
 {
-    if (_unsigned_input == 0)
+    switch (_unsigned_input)
     {
+    case 0:
         return StateName::GROUP_HOME;
+
+    default:
+        std::cout << ERROR_TEXT;
+        return StateName::EDIT_EXPENSE;
     }
 }
 
@@ -566,9 +591,14 @@ void StateBalance::_during()
 
 StateName StateBalance::transitions()
 {
-    if (_unsigned_input == 0)
+    switch (_unsigned_input)
     {
+    case 0:
         return StateName::GROUP_HOME;
+
+    default:
+        std::cout << ERROR_TEXT;
+        return StateName::BALANCE;
     }
 }
 
@@ -599,8 +629,9 @@ void StateAutoGen::_during()
 
 StateName StateAutoGen::transitions()
 {
-    if (_unsigned_input == 0)
+    switch (_unsigned_input)
     {
+    case 0:
         return StateName::EXIT;
     }
 }

@@ -3,7 +3,7 @@
 
 #include <string>
 
-inline std::string ERROR_TEXT = "\nOops, that input is invalid.  Please try again.\n";
+inline std::string ERROR_TEXT = "Oops, that input is invalid.  Please try again.\n";
 
 inline std::string INIT_TEXT = "=================================================\n"
                                "Choose mode:\n"
