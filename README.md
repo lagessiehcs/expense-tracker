@@ -1,6 +1,6 @@
 # Expense Tracker
 
-Hey, thank you for using our program!
+Hey, thank you for using my program!
 
 ## Compilation
 
