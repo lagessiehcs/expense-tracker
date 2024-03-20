@@ -53,7 +53,9 @@ protected:
 public:
     State(StateName name);
 
-    virtual StateName run();
+    void enter();
+
+    StateName run();
 
     virtual StateName transitions();
 

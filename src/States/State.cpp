@@ -5,9 +5,13 @@ State::State(StateName name)
 {
 }
 
-StateName State::run()
+void State::enter()
 {
     _entry();
+}
+
+StateName State::run()
+{
     _during();
     return transitions();
 }

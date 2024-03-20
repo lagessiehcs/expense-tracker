@@ -1,6 +1,5 @@
 #include <string>
 #include "../inc/States/States.h"
-#include "../inc/auto_generate.h"
 #include <memory>
 
 // states
@@ -49,7 +48,7 @@ std::vector<std::shared_ptr<State>> states = {std::make_shared<StateInit>(s_init
                                               std::make_shared<StateExit>(s_exit)};
 
 // current state
-State *currentState = states[0].get();
+State *currentState;
 
 State *getState(StateName state_name)
 {
@@ -65,13 +64,15 @@ State *getState(StateName state_name)
 
 int main()
 {
+    currentState = states[0].get();
+    currentState->enter();
     while (true)
     {
         StateName nextState = currentState->run();
         if (nextState != s_exit.name())
         {
             currentState = getState(nextState);
-            currentState->run();
+            currentState->enter();
         }
         else
         {

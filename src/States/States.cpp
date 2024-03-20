@@ -18,6 +18,7 @@ void StateInit::_during()
 {
     std::cout << "Input: ";
     _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateInit::transitions()
@@ -52,6 +53,7 @@ void StateStart::_during()
 {
     std::cout << "Input: ";
     _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateStart::transitions()
@@ -82,7 +84,7 @@ StateChooseUser::StateChooseUser()
 
 void StateChooseUser::_entry()
 {
-    std::cout << "\n=================================================\n";
+    std::cout << "=================================================\n";
     print_all_users(_user_umap);
     if (not _user_umap.empty())
     {
@@ -93,6 +95,7 @@ void StateChooseUser::_entry()
 
 void StateChooseUser::_during()
 {
+    std::cout << "Input: ";
 }
 
 StateName StateChooseUser::transitions()
@@ -103,6 +106,7 @@ StateName StateChooseUser::transitions()
     }
 
     _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 
     switch (_unsigned_input)
     {
@@ -139,6 +143,7 @@ void StateCreateUser::_during()
 {
     std::cout << "Input: ";
     _string_input = get_string();
+    std::cout << std::endl;
     _user_id = add_user(_string_input, _user_umap).id();
 }
 
@@ -164,6 +169,7 @@ void StateUserHome::_during()
 {
     std::cout << "Input: ";
     _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateUserHome::transitions()
@@ -205,6 +211,7 @@ void StateCreateGroup::_during()
 {
     std::cout << "Input: ";
     _string_input = get_string();
+    std::cout << std::endl;
     _group_id = add_group(_string_input, _group_umap);
     add_user_to_group(_user_umap[_user_id], _group_umap[_group_id]);
 }
@@ -224,7 +231,7 @@ StateChooseGroup::StateChooseGroup()
 void StateChooseGroup::_entry()
 {
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
-    std::cout << "\n=================================================\n";
+    std::cout << "=================================================\n";
     print_all_groups(_group_umap);
     if (not _group_umap.empty())
     {
@@ -267,7 +274,7 @@ StateJoinGroup::StateJoinGroup()
 void StateJoinGroup::_entry()
 {
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
-    std::cout << "\n=================================================\n";
+    std::cout << "=================================================\n";
     print_all_groups(_group_umap);
     if (not _group_umap.empty())
     {
@@ -282,7 +289,7 @@ void StateJoinGroup::_during()
 
 StateName StateJoinGroup::transitions()
 {
-    if (_user_umap[_user_id].group_ids().empty())
+    if (_group_umap.empty())
     {
         return StateName::USER_HOME;
     }
@@ -319,6 +326,7 @@ void StateGroupHome::_during()
 {
     std::cout << "Input: ";
     _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateGroupHome::transitions()
@@ -363,7 +371,7 @@ void StateGroupMember::_entry()
 {
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "\n=================================================\n";
+    std::cout << "=================================================\n";
     _group_umap[_group_id].print_group_members(_user_umap, _group_umap);
     std::cout << "(0) Back\n";
     std::cout << "=================================================\n";
@@ -373,6 +381,7 @@ void StateGroupMember::_during()
 {
     std::cout << "Input: ";
     _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateGroupMember::transitions()
@@ -435,19 +444,20 @@ void StateCheckExpense::_entry()
 {
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "\n=================================================\n";
+    std::cout << "=================================================\n";
     print_expenses(_group_id, _user_umap, _group_umap);
     if (not _group_umap.find(_group_id)->second.expenses().empty())
     {
         std::cout << "(0) Back\n";
     }
-    std::cout << "\n=================================================\n";
+    std::cout << "=================================================\n";
 }
 
 void StateCheckExpense::_during()
 {
     std::cout << "Input: ";
     _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateCheckExpense::transitions()
@@ -469,16 +479,17 @@ void StateSettlement::_entry()
 {
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "\n=================================================\n";
+    std::cout << "=================================================\n";
     _group_umap[_group_id].create_settlement(_user_umap);
     std::cout << "\n(0) Back\n";
-    std::cout << "\n=================================================\n";
+    std::cout << "=================================================\n";
 }
 
 void StateSettlement::_during()
 {
     std::cout << "Input: ";
     _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateSettlement::transitions()
@@ -507,6 +518,7 @@ void StateLeaveGroup::_during()
 {
     std::cout << "Input: ";
     _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateLeaveGroup::transitions()
@@ -558,7 +570,7 @@ void StateBalance::_entry()
 {
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "\n=================================================\n";
+    std::cout << "=================================================\n";
     _user_umap[_user_id].show_balance(_group_id);
     std::cout << "(0) Back\n";
     std::cout << "=================================================\n";
@@ -568,6 +580,7 @@ void StateBalance::_during()
 {
     std::cout << "Input: ";
     _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateBalance::transitions()
@@ -587,17 +600,18 @@ StateAutoGen::StateAutoGen()
 
 void StateAutoGen::_entry()
 {
+    std::ifstream file(_path);
+    import_data(file, _user_umap, _group_umap);
 }
 
 void StateAutoGen::_during()
 {
-    std::ifstream file(_path);
-    import_data(file, _user_umap, _group_umap);
     auto_run(_user_umap, _group_umap);
     std::cout << "(0) Exit\n";
 
     std::cout << "Input: ";
     _unsigned_input = get_unsigned();
+    std::cout << std::endl;
 }
 
 StateName StateAutoGen::transitions()
