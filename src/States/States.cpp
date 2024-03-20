@@ -386,9 +386,12 @@ void StateGroupMember::_during()
 
 StateName StateGroupMember::transitions()
 {
-    if (_unsigned_input == 0)
+    while (true)
     {
-        return StateName::GROUP_HOME;
+        if (_unsigned_input == 0)
+        {
+            return StateName::GROUP_HOME;
+        }
     }
 }
 
@@ -427,9 +430,12 @@ void StateAddExpense::_during()
 
 StateName StateAddExpense::transitions()
 {
-    if (_unsigned_input == 0)
+    while (true)
     {
-        return StateName::GROUP_HOME;
+        if (_unsigned_input == 0)
+        {
+            return StateName::GROUP_HOME;
+        }
     }
 }
 
@@ -446,7 +452,7 @@ void StateCheckExpense::_entry()
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
     std::cout << "=================================================\n";
     print_expenses(_group_id, _user_umap, _group_umap);
-    if (not _group_umap.find(_group_id)->second.expenses().empty())
+    if (_group_umap.find(_group_id)->second.expenses().empty())
     {
         std::cout << "(0) Back\n";
     }
@@ -462,9 +468,12 @@ void StateCheckExpense::_during()
 
 StateName StateCheckExpense::transitions()
 {
-    if (_unsigned_input == 0)
+    while (true)
     {
-        return StateName::GROUP_HOME;
+        if (_unsigned_input == 0)
+        {
+            return StateName::GROUP_HOME;
+        }
     }
 }
 
@@ -494,9 +503,12 @@ void StateSettlement::_during()
 
 StateName StateSettlement::transitions()
 {
-    if (_unsigned_input == 0)
+    while (true)
     {
-        return StateName::GROUP_HOME;
+        if (_unsigned_input == 0)
+        {
+            return StateName::GROUP_HOME;
+        }
     }
 }
 
@@ -523,9 +535,12 @@ void StateLeaveGroup::_during()
 
 StateName StateLeaveGroup::transitions()
 {
-    if (_unsigned_input == 0)
+    while (true)
     {
-        return StateName::GROUP_HOME;
+        if (_unsigned_input == 0)
+        {
+            return StateName::GROUP_HOME;
+        }
     }
 }
 
@@ -585,9 +600,12 @@ void StateBalance::_during()
 
 StateName StateBalance::transitions()
 {
-    if (_unsigned_input == 0)
+    while (true)
     {
-        return StateName::GROUP_HOME;
+        if (_unsigned_input == 0)
+        {
+            return StateName::GROUP_HOME;
+        }
     }
 }
 
@@ -617,9 +635,12 @@ void StateAutoGen::_during()
 
 StateName StateAutoGen::transitions()
 {
-    if (_unsigned_input == 0)
+    while (true)
     {
-        return StateName::EXIT;
+        if (_unsigned_input == 0)
+        {
+            return StateName::EXIT;
+        }
     }
 }
 

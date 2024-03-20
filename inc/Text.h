@@ -60,7 +60,7 @@ inline std::string ADD_EXPENSE_TEXT = "=========================================
 //                                  "=================================================\n";
 
 inline std::string LEAVE_GROUP_TEXT = "=================================================\n"
-                                      "This feature is not yet available."
+                                      "This feature is not yet available.\n"
                                       "(0) Back\n"
                                       "=================================================\n";
 
