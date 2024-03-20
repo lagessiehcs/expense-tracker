@@ -3,11 +3,7 @@
 Hey, thank you for using our program!
 
 ## Compilation
-### Manual Compilation
-The code can be compiled manually with the folowing line:
-```
-g++ -o expense_tracker main.cpp backend.cpp Expense.cpp frontend.cpp Group.cpp printers.cpp User.cpp auto_generate.cpp
-```
+
 ### Compilation with Cmake
 The code can be compiled alternatively using Cmake:
 ```
