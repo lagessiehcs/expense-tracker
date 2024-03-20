@@ -55,7 +55,7 @@ State *getState(StateName state_name)
 {
     for (auto &state : states)
     {
-        if (state->transitions() == state_name)
+        if (state->name() == state_name)
         {
             return state.get();
         }
