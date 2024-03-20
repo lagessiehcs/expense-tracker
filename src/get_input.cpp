@@ -32,7 +32,7 @@ unsigned get_unsigned()
         std::cin >> x;
         if (not extraction_success())
         {
-            std::cout << "Oops, that input is invalid.  Please try again.\n";
+            std::cout << ERROR_TEXT;
             continue;
         }
 
@@ -46,6 +46,23 @@ float get_float()
     while (true) // Loop until user enters a valid input
     {
         float x{};
+        std::cin >> x;
+        if (not extraction_success())
+        {
+            std::cout << "Oops, that input is invalid.  Please try again.\n";
+            continue;
+        }
+
+        ignoreLine(); // Remove any extraneous input
+        return x;     // Return the value we extracted
+    }
+}
+
+std::string get_string()
+{
+    while (true) // Loop until user enters a valid input
+    {
+        std::string x{};
         std::cin >> x;
         if (not extraction_success())
         {
