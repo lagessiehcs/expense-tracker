@@ -7,17 +7,19 @@ State::State(StateName name)
 
 StateName State::run()
 {
-    during();
+    _entry();
+    _during();
     return transitions();
-}
-
-void State::enter()
-{
-    this->entry();
 }
 
 StateName State::transitions()
 {
     // If no transition specified, return the current State
+    return _name;
+}
+
+StateName State::name()
+{
+    // always return the current State
     return _name;
 }
