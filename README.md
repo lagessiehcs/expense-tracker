@@ -1,5 +1,5 @@
 # Expense Tracker
-
+Idea contributed by Gia-Phong Tran giaphong.tran@tum.de and Peter Riske peter.riske@tum.de.
 ## Motivation
 
 The goal of this project is to build a tool which helps people to have an overview over their group expenses. This tool is supposed to track common expenses (spent in a group or as a single individual) and to create an overview over the cash flows, e.g. of a group vacation. The Expense Tracker makes it easy to split bills with friends and family - everybody can see who they owe. Whether you are sharing a beach vacation, splitting rent with roommates or paying someone back for dinner, it makes life just easier!
