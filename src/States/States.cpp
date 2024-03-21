@@ -504,6 +504,9 @@ void StateAddExpense::_during()
             std::cout << std::endl;
             break;
         };
+
+        // TODO: Right now if a user is accidentally input multiple times,
+        // it will just be added to payee_id multiple times, which will cause calculation errors. This needs to be fixed
         _payee_ids.push_back(_unsigned_input - 1); // payee_id = user_input-1
     };
     add_expense_to_group(_float_input * 100, _user_id, _payee_ids, _group_umap[_group_id], _user_umap);
@@ -782,8 +785,7 @@ void StateExit::_during()
 {
 }
 
-// StateName StateExit::transitions()
-// {
-//     // If no transition specified, return the current State
-//     return StateName::EXIT;
-// }
+StateName StateExit::transitions()
+{
+    return StateName::EXIT;
+}

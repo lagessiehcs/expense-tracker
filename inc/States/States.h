@@ -313,7 +313,7 @@ private:
 
     void _during() override;
 
-    // StateName transitions();
+    StateName transitions();
 
 public:
     StateExit();
