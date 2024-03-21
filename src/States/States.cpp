@@ -122,21 +122,26 @@ void StateChooseUser::_entry()
     std::cout << std::endl;
     std::cout << "(0) Back\n";
     std::cout << "=================================================\n";
+    for (const auto &user : _user_umap)
+    {
+        _valid_input.push_back(std::to_string(user.first + 1));
+    }
 }
 
 void StateChooseUser::_during()
 {
     while (true)
-    { // TODO: change input from in to string
-        _unsigned_input = get_unsigned("Input: ");
-        if (_unsigned_input == 0)
+    {
+        _string_input = get_string("Input: ");
+        if (_string_input == "0")
         {
             std::cout << std::endl;
             break;
         }
-        _user_id = _unsigned_input - 1;
-        if (_user_id < _user_umap.size())
+        auto it = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
+        if (it != _valid_input.end())
         {
+            _user_id = std::stoi(_string_input) - 1;
             std::cout << std::endl;
             break;
         }
@@ -149,12 +154,12 @@ void StateChooseUser::_during()
 
 StateName StateChooseUser::transitions()
 {
-    switch (_unsigned_input)
+    if (_string_input == "0")
     {
-    case 0:
         return StateName::START;
-
-    default:
+    }
+    else
+    {
         return StateName::USER_HOME;
     }
 }

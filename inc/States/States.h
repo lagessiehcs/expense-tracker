@@ -46,7 +46,9 @@ public:
 class StateChooseUser : public State
 {
 private:
-    unsigned _unsigned_input;
+    std::string _string_input;
+
+    std::vector<std::string> _valid_input;
 
     void _entry() override;
 
