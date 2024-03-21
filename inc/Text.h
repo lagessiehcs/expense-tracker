@@ -9,12 +9,14 @@ inline std::string INIT_TEXT = "================================================
                                "Choose mode:\n"
                                "(1): User mode\n"
                                "(2): Auto generated mode (for performance test)\n"
+                               "\n(00) Exit\n"
                                "=================================================\n";
 
 inline std::string START_TEXT = "=================================================\n"
                                 "(1) Login\n"
                                 "(2) Create new user\n"
-                                "\n(0) Exit\n" // TODO: Add Option "Mode" so user can go back to choose mode
+                                "\n(0) Mode\n"
+                                "(00) Exit\n"
                                 "=================================================\n";
 
 // inline std::string CHOOSE_USER_TEXT = "=================================================\n"

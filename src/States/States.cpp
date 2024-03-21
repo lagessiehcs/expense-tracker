@@ -17,9 +17,10 @@ void StateInit::_entry()
 void StateInit::_during()
 {
     while (true)
-    { // TODO: input string instead of int and then convert to int when needed (e.g. for cases (00)).
-        _unsigned_input = get_unsigned("Input: ");
-        if (_unsigned_input == 1 or _unsigned_input == 2)
+    {
+        _string_input = get_string("Input: ");
+        auto it = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
+        if (it != _valid_input.end())
         {
             std::cout << std::endl;
             break;
@@ -33,15 +34,20 @@ void StateInit::_during()
 
 StateName StateInit::transitions()
 {
-    switch (_unsigned_input)
+    if (_string_input == "1")
     {
-    case 1:
         return StateName::START;
-
-    case 2:
+    }
+    else if (_string_input == "2")
+    {
         return StateName::AUTO_GEN;
-
-    default:
+    }
+    else if (_string_input == "00")
+    {
+        return StateName::EXIT;
+    }
+    else
+    {
         std::cout << "Something very wrong has just happened, we should not been able to land here.";
         return StateName::EXIT;
     }
@@ -63,8 +69,9 @@ void StateStart::_during()
 {
     while (true)
     {
-        _unsigned_input = get_unsigned("Input: ");
-        if (_unsigned_input >= 0 and _unsigned_input <= 3)
+        _string_input = get_string("Input: ");
+        auto it = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
+        if (it != _valid_input.end())
         {
             std::cout << std::endl;
             break;
@@ -78,20 +85,26 @@ void StateStart::_during()
 
 StateName StateStart::transitions()
 {
-    switch (_unsigned_input)
+    if (_string_input == "1")
     {
-    case 0:
-        return StateName::EXIT;
-
-    case 1:
         return StateName::CHOOSE_USER;
-
-    case 2:
+    }
+    else if (_string_input == "2")
+    {
         return StateName::CREATE_USER;
-
-    default:
-        std::cout << ERROR_TEXT;
-        return StateName::START;
+    }
+    else if (_string_input == "0")
+    {
+        return StateName::INIT;
+    }
+    else if (_string_input == "00")
+    {
+        return StateName::EXIT;
+    }
+    else
+    {
+        std::cout << "Something very wrong has just happened, we should not been able to land here.";
+        return StateName::EXIT;
     }
 }
 
@@ -114,7 +127,7 @@ void StateChooseUser::_entry()
 void StateChooseUser::_during()
 {
     while (true)
-    {
+    { // TODO: change input from in to string
         _unsigned_input = get_unsigned("Input: ");
         if (_unsigned_input == 0)
         {
@@ -718,12 +731,13 @@ void StateAutoGen::_during()
 {
     auto_run(_user_umap, _group_umap);
     std::cout << std::endl;
-    std::cout << "(0) Exit\n"; // TODO: Add Option "Mode" so user can go back to choose mode
-
+    std::cout << "(0) Mode\n";
+    std::cout << "(00) Exit\n";
     while (true)
     {
-        _unsigned_input = get_unsigned("Input: ");
-        if (_unsigned_input == 0)
+        _string_input = get_string("Input: ");
+        auto it = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
+        if (it != _valid_input.end())
         {
             break;
             std::cout << std::endl;
@@ -737,7 +751,19 @@ void StateAutoGen::_during()
 
 StateName StateAutoGen::transitions()
 {
-    return StateName::EXIT;
+    if (_string_input == "0")
+    {
+        return StateName::INIT;
+    }
+    else if (_string_input == "00")
+    {
+        return StateName::EXIT;
+    }
+    else
+    {
+        std::cout << "Something very wrong has just happened, we should not been able to land here.";
+        return StateName::EXIT;
+    }
 }
 
 //-----EXIT----------------------------------------------

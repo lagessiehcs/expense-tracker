@@ -8,7 +8,9 @@
 class StateInit : public State
 {
 private:
-    unsigned _unsigned_input;
+    std::string _string_input;
+
+    std::vector<std::string> _valid_input = {"1", "2", "00"};
 
     void _entry() override;
 
@@ -25,7 +27,9 @@ public:
 class StateStart : public State
 {
 private:
-    unsigned _unsigned_input;
+    std::string _string_input;
+
+    std::vector<std::string> _valid_input = {"1", "2", "0", "00"};
 
     void _entry() override;
 
@@ -286,7 +290,9 @@ class StateAutoGen : public State
 private:
     std::string _path;
 
-    unsigned _unsigned_input;
+    std::string _string_input;
+
+    std::vector<std::string> _valid_input = {"0", "00"};
 
     void _entry() override;
 
