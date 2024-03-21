@@ -14,7 +14,7 @@ inline std::string INIT_TEXT = "================================================
 inline std::string START_TEXT = "=================================================\n"
                                 "(1) Login\n"
                                 "(2) Create new user\n"
-                                "\n(0) Exit\n"
+                                "\n(0) Exit\n" // TODO: Add Option "Mode" so user can go back to choose mode
                                 "=================================================\n";
 
 // inline std::string CHOOSE_USER_TEXT = "=================================================\n"

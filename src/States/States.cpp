@@ -718,7 +718,7 @@ void StateAutoGen::_during()
 {
     auto_run(_user_umap, _group_umap);
     std::cout << std::endl;
-    std::cout << "(0) Exit\n";
+    std::cout << "(0) Exit\n"; // TODO: Add Option "Mode" so user can go back to choose mode
 
     while (true)
     {
