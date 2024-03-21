@@ -156,7 +156,9 @@ public:
 class StateGroupHome : public State
 {
 private:
-    unsigned _unsigned_input;
+    std::string _string_input;
+
+    std::vector<std::string> _valid_input = {"0", "1", "2", "3", "4", "5", "6"};
 
     void _entry() override;
 
@@ -175,6 +177,10 @@ class StateGroupMember : public State
 private:
     unsigned _unsigned_input;
 
+    std::string _string_input;
+
+    std::vector<std::string> _valid_input = {"0"};
+
     void _entry() override;
 
     void _during() override;
@@ -191,7 +197,10 @@ class StateAddExpense : public State
 {
 private:
     float _float_input;
-    unsigned _unsigned_input;
+
+    std::string _string_input;
+
+    std::vector<std::string> _valid_input;
 
     std::vector<unsigned> _payee_ids;
 

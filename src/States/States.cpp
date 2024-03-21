@@ -406,8 +406,9 @@ void StateGroupHome::_during()
 {
     while (true)
     {
-        _unsigned_input = get_unsigned("Input: ");
-        if (_unsigned_input >= 0 or _unsigned_input <= 6)
+        _string_input = get_string("Input: ");
+        auto it = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
+        if (it != _valid_input.end())
         {
             std::cout << std::endl;
             break;
@@ -421,30 +422,37 @@ void StateGroupHome::_during()
 
 StateName StateGroupHome::transitions()
 {
-    switch (_unsigned_input)
+
+    if (_string_input == "0")
     {
-    case 0:
         return StateName::USER_HOME;
-
-    case 1:
+    }
+    else if (_string_input == "1")
+    {
         return StateName::ADD_EXPENSE;
-
-    case 2:
+    }
+    else if (_string_input == "2")
+    {
         return StateName::CHECK_EXPENSE;
-
-    case 3:
+    }
+    else if (_string_input == "3")
+    {
         return StateName::BALANCE;
-
-    case 4:
+    }
+    else if (_string_input == "4")
+    {
         return StateName::SETTLEMENT;
-
-    case 5:
+    }
+    else if (_string_input == "5")
+    {
         return StateName::GROUP_MEMBER;
-
-    case 6:
+    }
+    else if (_string_input == "6")
+    {
         return StateName::LEAVE_GROUP;
-
-    default:
+    }
+    else
+    {
         std::cout << "Something very wrong has just happened, we should not been able to land here.";
         return StateName::EXIT;
     }
@@ -472,8 +480,9 @@ void StateGroupMember::_during()
 {
     while (true)
     {
-        _unsigned_input = get_unsigned("Input: ");
-        if (_unsigned_input == 0)
+        _string_input = get_string("Input: ");
+
+        if (_string_input == "0")
         {
             std::cout << std::endl;
             break;
@@ -502,6 +511,12 @@ void StateAddExpense::_entry()
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
     std::cout << ADD_EXPENSE_TEXT;
+
+    const auto &member_ids = _group_umap[_group_id].member_ids();
+    for (auto id : member_ids)
+    {
+        _valid_input.push_back(std::to_string(id + 1));
+    }
 }
 
 void StateAddExpense::_during()
@@ -515,17 +530,26 @@ void StateAddExpense::_during()
 
     while (true)
     {
-        _unsigned_input = get_unsigned("Input: ");
-        if (_unsigned_input == 0)
+        _string_input = get_string("Input: ");
+
+        if (_string_input == "0")
         {
             std::cout << std::endl;
+            std::cout << "Expense successfully added."; // TODO: "Any button/Enter to continue"
+            std::cout << std::endl;
             break;
-        };
+        }
 
-        // TODO: Right now if a user is accidentally input multiple times,
-        // it will just be added to payee_id multiple times, which will cause calculation errors. This needs to be fixed
-        _payee_ids.push_back(_unsigned_input - 1); // payee_id = user_input-1
+        auto it = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
+        if (it != _valid_input.end())
+        {
+
+            // TODO: Right now if a user is accidentally input multiple times,
+            // it will just be added to payee_id multiple times, which will cause calculation errors. This needs to be fixed
+            _payee_ids.push_back(std::stoi(_string_input) - 1); // payee_id = user_input-1
+        }
     };
+
     add_expense_to_group(_float_input * 100, _user_id, _payee_ids, _group_umap[_group_id], _user_umap);
 }
 
@@ -734,6 +758,9 @@ StateName StateBalance::transitions()
 }
 
 //-----AUTO_GEN----------------------------------------------
+
+// TODO:Before get in the group,all old data of user and group list has to be deleted
+// or a nwe data containers have to be defined.
 
 StateAutoGen::StateAutoGen()
     : State(StateName::AUTO_GEN)
