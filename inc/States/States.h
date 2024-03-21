@@ -82,7 +82,9 @@ public:
 class StateUserHome : public State
 {
 private:
-    unsigned _unsigned_input;
+    std::string _string_input;
+
+    std::vector<std::string> _valid_input = {"1", "2", "3", "0"};
 
     void _entry() override;
 
@@ -116,7 +118,9 @@ public:
 class StateChooseGroup : public State
 {
 private:
-    unsigned _unsigned_input;
+    std::string _string_input;
+
+    std::vector<std::string> _valid_input;
 
     void _entry() override;
 

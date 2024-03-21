@@ -205,8 +205,9 @@ void StateUserHome::_during()
 {
     while (true)
     {
-        _unsigned_input = get_unsigned("Input: ");
-        if (_unsigned_input >= 0 and _unsigned_input <= 3)
+        _string_input = get_string("Input: ");
+        auto it = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
+        if (it != _valid_input.end())
         {
             std::cout << std::endl;
             break;
@@ -220,23 +221,26 @@ void StateUserHome::_during()
 
 StateName StateUserHome::transitions()
 {
-    switch (_unsigned_input)
+    if (_string_input == "1")
     {
-    case 0:
-        return StateName::START;
-
-    case 1:
         return StateName::JOIN_GROUP;
-
-    case 2:
+    }
+    else if (_string_input == "2")
+    {
         return StateName::CREATE_GROUP;
-
-    case 3:
+    }
+    else if (_string_input == "0")
+    {
+        return StateName::START;
+    }
+    else if (_string_input == "3")
+    {
         return StateName::CHOOSE_GROUP;
-
-    default:
-        std::cout << ERROR_TEXT;
-        return StateName::USER_HOME;
+    }
+    else
+    {
+        std::cout << "Something very wrong has just happened, we should not been able to land here.";
+        return StateName::EXIT;
     }
 }
 
@@ -281,26 +285,28 @@ void StateChooseGroup::_entry()
     std::cout << std::endl;
     std::cout << "(0) Back\n";
     std::cout << "=================================================\n";
+
+    const auto &group_ids = _user_umap[_user_id].group_ids();
+    for (const auto &id : group_ids)
+    {
+        _valid_input.push_back(std::to_string(id + 1));
+    }
 }
 
 void StateChooseGroup::_during()
 {
     while (true)
     {
-        _unsigned_input = get_unsigned("Input: ");
-
-        if (_unsigned_input == 0)
+        _string_input = get_string("Input: ");
+        if (_string_input == "0")
         {
             std::cout << std::endl;
             break;
         }
-
-        _group_id = _unsigned_input - 1;
-        const auto &group_ids = _user_umap[_user_id].group_ids();
-        auto it = std::find(group_ids.begin(), group_ids.end(), _group_id);
-
-        if (it != group_ids.end())
+        auto it = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
+        if (it != _valid_input.end())
         {
+            _group_id = std::stoi(_string_input) - 1;
             std::cout << std::endl;
             break;
         }
@@ -313,12 +319,12 @@ void StateChooseGroup::_during()
 
 StateName StateChooseGroup::transitions()
 {
-    switch (_unsigned_input)
+    if (_string_input == "0")
     {
-    case 0:
         return StateName::USER_HOME;
-
-    default:
+    }
+    else
+    {
         return StateName::GROUP_HOME;
     }
 }
