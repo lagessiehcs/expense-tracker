@@ -83,21 +83,21 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
     while (not debtor_ids.empty())
     {
 
-        auto &creditor = user_umap.find(creditor_ids.back())->second;
-        auto &debtor = user_umap.find(debtor_ids.back())->second;
+        auto &creditor = user_umap[creditor_ids.back()];
+        auto &debtor = user_umap[debtor_ids.back()];
 
-        auto transaction_amount = -debtor.balance().find(_id)->second;
+        auto transaction_amount = -debtor.balance()[_id];
         std::cout << debtor.name() << " owes " << creditor.name() << " " << transaction_amount * 0.01 << " Euro.\n";
 
         debtor.update_balance(_id, transaction_amount);
         debtor_ids.pop_back();
 
         creditor.update_balance(_id, -transaction_amount);
-        if (creditor.balance().find(_id)->second <= 0)
+        if (creditor.balance()[_id] <= 0)
         {
             creditor_ids.pop_back();
             {
-                if (creditor.balance().find(_id)->second < 0)
+                if (creditor.balance()[_id] < 0)
                 {
                     debtor_ids.push_back(creditor.id());
                 }
@@ -110,7 +110,7 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
 
 void Group::print_group_members(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap) const
 {
-    const auto &member_ids = group_umap.find(_id)->second.member_ids();
+    const auto &member_ids = group_umap.find(_id)->second.member_ids(); // Find() instead of [], because group_umap is const, but operator[] not
     if (group_umap.find(_id)->second.member_ids().empty())
     {
         std::cout << "This group is empty!\n";
