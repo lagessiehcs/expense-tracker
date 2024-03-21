@@ -14,7 +14,7 @@ inline std::string INIT_TEXT = "================================================
 
 inline std::string START_TEXT = "=================================================\n"
                                 "(1) Login\n"
-                                "(2) Create new user\n"
+                                "(2) New user\n"
                                 "\n(0) Mode\n"
                                 "(00) Exit\n"
                                 "=================================================\n";
@@ -28,7 +28,7 @@ inline std::string CREATE_USER_TEXT = "=========================================
 
 inline std::string USER_HOME_TEXT = "=================================================\n"
                                     "(1) Join group\n"
-                                    "(2) Create group\n"
+                                    "(2) New group\n"
                                     "(3) My groups\n"
                                     "\n(0) Log-out\n"
                                     "=================================================\n";
