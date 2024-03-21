@@ -17,9 +17,6 @@ cmake -S ../src/ -G "Unix Makefiles"
 make
 ```
 
-
-
-
 ## Using the Program 
 The first thing you need to do when running the app, is choosing a mode:   
 (1): User mode: Choose this mode if you want to use the app as a normal user.   
