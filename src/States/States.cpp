@@ -17,7 +17,7 @@ void StateInit::_entry()
 void StateInit::_during()
 {
     while (true)
-    {
+    { // TODO: input string instead of int and then convert to int when needed (e.g. for cases (00)).
         _unsigned_input = get_unsigned("Input: ");
         if (_unsigned_input == 1 or _unsigned_input == 2)
         {
