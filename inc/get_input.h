@@ -8,10 +8,10 @@ void ignoreLine();
 
 bool extraction_success();
 
-unsigned get_unsigned();
+unsigned get_unsigned(std::string);
 
-float get_float();
+float get_float(std::string);
 
-std::string get_string();
+std::string get_string(std::string);
 
 #endif

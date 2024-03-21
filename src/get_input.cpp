@@ -24,11 +24,12 @@ bool extraction_success()
     return true;
 }
 
-unsigned get_unsigned()
+unsigned get_unsigned(std::string string)
 {
     while (true) // Loop until user enters a valid input
     {
         unsigned x{};
+        std::cout << string;
         std::cin >> x;
         if (not extraction_success())
         {
@@ -41,15 +42,16 @@ unsigned get_unsigned()
     }
 }
 
-float get_float()
+float get_float(std::string string)
 {
     while (true) // Loop until user enters a valid input
     {
         float x{};
+        std::cout << string;
         std::cin >> x;
         if (not extraction_success())
         {
-            std::cout << "Oops, that input is invalid.  Please try again.\n";
+            std::cout << ERROR_TEXT;
             continue;
         }
 
@@ -58,15 +60,16 @@ float get_float()
     }
 }
 
-std::string get_string()
+std::string get_string(std::string string)
 {
     while (true) // Loop until user enters a valid input
     {
         std::string x{};
+        std::cout << string;
         std::cin >> x;
         if (not extraction_success())
         {
-            std::cout << "Oops, that input is invalid.  Please try again.\n";
+            std::cout << ERROR_TEXT;
             continue;
         }
 

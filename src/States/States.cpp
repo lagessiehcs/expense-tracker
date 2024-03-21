@@ -16,9 +16,19 @@ void StateInit::_entry()
 
 void StateInit::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input == 1 or _unsigned_input == 2)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateInit::transitions()
@@ -32,8 +42,8 @@ StateName StateInit::transitions()
         return StateName::AUTO_GEN;
 
     default:
-        std::cout << ERROR_TEXT;
-        return StateName::INIT;
+        std::cout << "Something very wrong has just happened, we should not been able to land here.";
+        return StateName::EXIT;
     }
 }
 
@@ -51,9 +61,19 @@ void StateStart::_entry()
 
 void StateStart::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input >= 0 and _unsigned_input <= 3)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateStart::transitions()
@@ -93,9 +113,25 @@ void StateChooseUser::_entry()
 
 void StateChooseUser::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input == 0)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        _user_id = _unsigned_input - 1;
+        if (_user_id < _user_umap.size())
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateChooseUser::transitions()
@@ -106,16 +142,7 @@ StateName StateChooseUser::transitions()
         return StateName::START;
 
     default:
-        if (_unsigned_input - 1 < _user_umap.size())
-        {
-            _user_id = _unsigned_input - 1;
-            return StateName::USER_HOME;
-        }
-        else
-        {
-            std::cout << ERROR_TEXT;
-            return StateName::CHOOSE_USER;
-        }
+        return StateName::USER_HOME;
     }
 }
 
@@ -133,8 +160,7 @@ void StateCreateUser::_entry()
 
 void StateCreateUser::_during()
 {
-    std::cout << "Input: ";
-    _string_input = get_string();
+    _string_input = get_string("Input: ");
     std::cout << std::endl;
     _user_id = add_user(_string_input, _user_umap).id();
 }
@@ -159,9 +185,19 @@ void StateUserHome::_entry()
 
 void StateUserHome::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input >= 0 and _unsigned_input <= 3)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateUserHome::transitions()
@@ -201,8 +237,7 @@ void StateCreateGroup::_entry()
 
 void StateCreateGroup::_during()
 {
-    std::cout << "Input: ";
-    _string_input = get_string();
+    _string_input = get_string("Input: ");
     std::cout << std::endl;
     _group_id = add_group(_string_input, _group_umap);
     add_user_to_group(_user_umap[_user_id], _group_umap[_group_id]);
@@ -232,9 +267,30 @@ void StateChooseGroup::_entry()
 
 void StateChooseGroup::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+
+        if (_unsigned_input == 0)
+        {
+            std::cout << std::endl;
+            break;
+        }
+
+        _group_id = _unsigned_input - 1;
+        const auto &group_ids = _user_umap[_user_id].group_ids();
+        auto it = std::find(group_ids.begin(), group_ids.end(), _group_id);
+
+        if (it != group_ids.end())
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateChooseGroup::transitions()
@@ -245,7 +301,6 @@ StateName StateChooseGroup::transitions()
         return StateName::USER_HOME;
 
     default:
-        _group_id = _unsigned_input - 1;
         return StateName::GROUP_HOME;
     }
 }
@@ -269,9 +324,26 @@ void StateJoinGroup::_entry()
 
 void StateJoinGroup::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input == 0)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        _group_id = _unsigned_input - 1;
+        if (_group_id >= 0 and _group_id <= _group_umap.size() - 1)
+        {
+            add_user_to_group(_user_umap[_user_id], _group_umap[_group_id]);
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateJoinGroup::transitions()
@@ -282,8 +354,6 @@ StateName StateJoinGroup::transitions()
         return StateName::USER_HOME;
 
     default:
-        add_user_to_group(_user_umap[_user_id], _group_umap[_unsigned_input - 1]);
-        _group_id = _group_umap[_unsigned_input - 1].id();
         return StateName::GROUP_HOME;
     }
 }
@@ -304,9 +374,19 @@ void StateGroupHome::_entry()
 
 void StateGroupHome::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input >= 0 or _unsigned_input <= 6)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateGroupHome::transitions()
@@ -335,8 +415,8 @@ StateName StateGroupHome::transitions()
         return StateName::LEAVE_GROUP;
 
     default:
-        std::cout << ERROR_TEXT;
-        return StateName::GROUP_HOME;
+        std::cout << "Something very wrong has just happened, we should not been able to land here.";
+        return StateName::EXIT;
     }
 }
 
@@ -360,22 +440,24 @@ void StateGroupMember::_entry()
 
 void StateGroupMember::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input == 0)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateGroupMember::transitions()
 {
-    switch (_unsigned_input)
-    {
-    case 0:
-        return StateName::GROUP_HOME;
-
-    default:
-        std::cout << ERROR_TEXT;
-        return StateName::GROUP_MEMBER;
-    }
+    return StateName::GROUP_HOME;
 }
 
 //-----ADD_EXPENSE----------------------------------------------
@@ -394,17 +476,19 @@ void StateAddExpense::_entry()
 
 void StateAddExpense::_during()
 {
-    std::cout << "Add expense in Euro: ";
-    _float_input = get_float();
+    _float_input = get_float("Add expense in Euro: ");
     std::cout << "For whom are your paying?" << std::endl;
     _group_umap[_group_id].print_group_members(_user_umap, _group_umap);
     std::cout << std::endl;
-    std::cout << "(0) Finished" << std::endl;
+    std::cout << "(0) Finished\n";
+    std::cout << std::endl;
+
     while (true)
     {
-        _unsigned_input = get_unsigned();
+        _unsigned_input = get_unsigned("Input: ");
         if (_unsigned_input == 0)
         {
+            std::cout << std::endl;
             break;
         };
         _payee_ids.push_back(_unsigned_input - 1); // payee_id = user_input-1
@@ -437,22 +521,24 @@ void StateCheckExpense::_entry()
 
 void StateCheckExpense::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input == 0)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateCheckExpense::transitions()
 {
-    switch (_unsigned_input)
-    {
-    case 0:
-        return StateName::GROUP_HOME;
-
-    default:
-        std::cout << ERROR_TEXT;
-        return StateName::CHECK_EXPENSE;
-    }
+    return StateName::GROUP_HOME;
 }
 
 //-----SETTLEMENT----------------------------------------------
@@ -475,22 +561,24 @@ void StateSettlement::_entry()
 
 void StateSettlement::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input == 0)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateSettlement::transitions()
 {
-    switch (_unsigned_input)
-    {
-    case 0:
-        return StateName::GROUP_HOME;
-
-    default:
-        std::cout << ERROR_TEXT;
-        return StateName::SETTLEMENT;
-    }
+    return StateName::GROUP_HOME;
 }
 
 //-----LEAVE_GROUP----------------------------------------------
@@ -509,22 +597,24 @@ void StateLeaveGroup::_entry()
 
 void StateLeaveGroup::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input == 0)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateLeaveGroup::transitions()
 {
-    switch (_unsigned_input)
-    {
-    case 0:
-        return StateName::GROUP_HOME;
-
-    default:
-        std::cout << ERROR_TEXT;
-        return StateName::LEAVE_GROUP;
-    }
+    return StateName::GROUP_HOME;
 }
 
 //-----EDIT_EXPENSE----------------------------------------------
@@ -543,25 +633,31 @@ void StateEditExpense::_entry()
 
 void StateEditExpense::_during()
 {
-    std::cout << "Which expense do you want to change: ";
-    _unsigned_input = get_unsigned();
-    std::cout << "Amount you want to change to in Euro: ";
-    _float_input = get_float();
+    _unsigned_input = get_unsigned("Which expense do you want to change: ");
+    _float_input = get_float("Amount you want to change to in Euro: ");
     edit_expense(_group_umap[_group_id], _unsigned_input - 1, _float_input * 100);
     std::cout << "Done!";
+    std::cout << std::endl;
+    std::cout << "Press (0) to go back";
+
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input == 0)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateEditExpense::transitions()
 {
-    switch (_unsigned_input)
-    {
-    case 0:
-        return StateName::GROUP_HOME;
-
-    default:
-        std::cout << ERROR_TEXT;
-        return StateName::EDIT_EXPENSE;
-    }
+    return StateName::GROUP_HOME;
 }
 
 //-----BALANCE----------------------------------------------
@@ -584,22 +680,24 @@ void StateBalance::_entry()
 
 void StateBalance::_during()
 {
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input == 0)
+        {
+            std::cout << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateBalance::transitions()
 {
-    switch (_unsigned_input)
-    {
-    case 0:
-        return StateName::GROUP_HOME;
-
-    default:
-        std::cout << ERROR_TEXT;
-        return StateName::BALANCE;
-    }
+    return StateName::GROUP_HOME;
 }
 
 //-----AUTO_GEN----------------------------------------------
@@ -622,18 +720,24 @@ void StateAutoGen::_during()
     std::cout << std::endl;
     std::cout << "(0) Exit\n";
 
-    std::cout << "Input: ";
-    _unsigned_input = get_unsigned();
-    std::cout << std::endl;
+    while (true)
+    {
+        _unsigned_input = get_unsigned("Input: ");
+        if (_unsigned_input == 0)
+        {
+            break;
+            std::cout << std::endl;
+        }
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 }
 
 StateName StateAutoGen::transitions()
 {
-    switch (_unsigned_input)
-    {
-    case 0:
-        return StateName::EXIT;
-    }
+    return StateName::EXIT;
 }
 
 //-----EXIT----------------------------------------------
