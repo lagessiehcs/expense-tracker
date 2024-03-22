@@ -91,7 +91,7 @@ StateName StateStart::transitions()
     }
     else if (_string_input == "2")
     {
-        return StateName::CREATE_USER;
+        return StateName::NEW_USER;
     }
     else if (_string_input == "0")
     {
@@ -164,26 +164,26 @@ StateName StateChooseUser::transitions()
     }
 }
 
-//-----CREATE_USER----------------------------------------------
+//-----NEW_USER----------------------------------------------
 
-StateCreateUser::StateCreateUser()
-    : State(StateName::CREATE_USER)
+StateNewUser::StateNewUser()
+    : State(StateName::NEW_USER)
 {
 }
 
-void StateCreateUser::_entry()
+void StateNewUser::_entry()
 {
-    std::cout << CREATE_USER_TEXT;
+    std::cout << NEW_USER_TEXT;
 }
 
-void StateCreateUser::_during()
+void StateNewUser::_during()
 {
     _string_input = get_string("Input: ");
     std::cout << std::endl;
     _user_id = add_user(_string_input, _user_umap).id();
 }
 
-StateName StateCreateUser::transitions()
+StateName StateNewUser::transitions()
 {
     return StateName::USER_HOME;
 }
@@ -227,7 +227,7 @@ StateName StateUserHome::transitions()
     }
     else if (_string_input == "2")
     {
-        return StateName::CREATE_GROUP;
+        return StateName::NEW_GROUP;
     }
     else if (_string_input == "0")
     {
@@ -244,20 +244,20 @@ StateName StateUserHome::transitions()
     }
 }
 
-//-----CREATE_GROUP----------------------------------------------
+//-----NEW_GROUP----------------------------------------------
 
-StateCreateGroup::StateCreateGroup()
-    : State(StateName::CREATE_GROUP)
+StateNewGroup::StateNewGroup()
+    : State(StateName::NEW_GROUP)
 {
 }
 
-void StateCreateGroup::_entry()
+void StateNewGroup::_entry()
 {
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
-    std::cout << CREATE_GROUP_TEXT;
+    std::cout << NEW_GROUP_TEXT;
 }
 
-void StateCreateGroup::_during()
+void StateNewGroup::_during()
 {
     _string_input = get_string("Input: ");
     std::cout << std::endl;
@@ -265,7 +265,7 @@ void StateCreateGroup::_during()
     add_user_to_group(_user_umap[_user_id], _group_umap[_group_id]);
 }
 
-StateName StateCreateGroup::transitions()
+StateName StateNewGroup::transitions()
 {
     return StateName::GROUP_HOME;
 }

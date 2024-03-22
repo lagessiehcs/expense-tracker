@@ -7,10 +7,10 @@ StateInit s_init;
 
 StateStart s_start;
 StateChooseUser s_choose_user;
-StateCreateUser s_create_user;
+StateNewUser s_create_user;
 
 StateUserHome s_user_home;
-StateCreateGroup s_create_group;
+StateNewGroup s_create_group;
 StateChooseGroup s_choose_group;
 StateJoinGroup s_join_group;
 
@@ -31,9 +31,9 @@ StateExit s_exit;
 std::vector<std::shared_ptr<State>> states = {std::make_shared<StateInit>(s_init),
                                               std::make_shared<StateStart>(s_start),
                                               std::make_shared<StateChooseUser>(s_choose_user),
-                                              std::make_shared<StateCreateUser>(s_create_user),
+                                              std::make_shared<StateNewUser>(s_create_user),
                                               std::make_shared<StateUserHome>(s_user_home),
-                                              std::make_shared<StateCreateGroup>(s_create_group),
+                                              std::make_shared<StateNewGroup>(s_create_group),
                                               std::make_shared<StateChooseGroup>(s_choose_group),
                                               std::make_shared<StateJoinGroup>(s_join_group),
                                               std::make_shared<StateGroupHome>(s_group_home),

@@ -60,9 +60,9 @@ public:
     StateChooseUser();
 };
 
-//-----CREATE_USER----------------------------------------------
+//-----NEW_USER----------------------------------------------
 
-class StateCreateUser : public State
+class StateNewUser : public State
 {
 private:
     std::string _string_input;
@@ -74,7 +74,7 @@ private:
     StateName transitions();
 
 public:
-    StateCreateUser();
+    StateNewUser();
 };
 
 //-----USER_HOME----------------------------------------------
@@ -96,9 +96,9 @@ public:
     StateUserHome();
 };
 
-//-----CREATE_GROUP----------------------------------------------
+//-----NEW_GROUP----------------------------------------------
 
-class StateCreateGroup : public State
+class StateNewGroup : public State
 {
 private:
     std::string _string_input;
@@ -110,7 +110,7 @@ private:
     StateName transitions();
 
 public:
-    StateCreateGroup();
+    StateNewGroup();
 };
 
 //-----CHOOSE_GROUP----------------------------------------------

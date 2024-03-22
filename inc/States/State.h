@@ -11,10 +11,10 @@ enum class StateName
 
     START,
     CHOOSE_USER,
-    CREATE_USER,
+    NEW_USER,
 
     USER_HOME,
-    CREATE_GROUP,
+    NEW_GROUP,
     CHOOSE_GROUP,
     JOIN_GROUP,
 
