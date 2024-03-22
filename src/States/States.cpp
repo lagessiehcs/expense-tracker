@@ -573,16 +573,32 @@ void StateAddExpense::_during()
             break;
         }
 
-        auto it = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
-        if (it != _valid_input.end())
+        auto it_valid_input = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
+        if (it_valid_input != _valid_input.end())
         {
-            // TODO: Right now if a user is accidentally input multiple times,
-            // it will just be added to payee_id multiple times, which will cause calculation errors. This needs to be fixed
+            _valid_input.erase(it_valid_input);
             _payee_ids.push_back(std::stoi(_string_input) - 1); // payee_id = user_input-1
         }
         else
         {
-            std::cout << ERROR_TEXT;
+            try
+            {
+                auto it_payee_ids = std::find(_payee_ids.begin(), _payee_ids.end(), std::stoi(_string_input) - 1);
+                if (it_payee_ids != _payee_ids.end())
+                {
+                    std::cout << "You have already input this member.\n";
+                    continue;
+                }
+                else
+                {
+                    std::cout << "This member does not exist.\n";
+                }
+            }
+            catch (const std::exception &error)
+            {
+                std::cerr << "Warning: " << error.what() << "\n";
+                std::cout << ERROR_TEXT;
+            }
         }
     }
 
