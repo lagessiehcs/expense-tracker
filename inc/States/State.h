@@ -51,6 +51,9 @@ protected:
     static inline std::unordered_map<unsigned, User> _user_umap;
     static inline std::unordered_map<unsigned, Group> _group_umap;
 
+    static inline std::unordered_map<unsigned, User> _user_umap_auto_gen;
+    static inline std::unordered_map<unsigned, Group> _group_umap_auto_gen;
+
 public:
     State(StateName name);
 

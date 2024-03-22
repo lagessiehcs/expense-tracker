@@ -238,7 +238,7 @@ public:
 class StateSettlement : public State
 {
 private:
-    unsigned _unsigned_input;
+    std::string _string_input;
 
     void _entry() override;
 
@@ -255,7 +255,7 @@ public:
 class StateLeaveGroup : public State
 {
 private:
-    unsigned _unsigned_input;
+    std::string _string_input;
 
     void _entry() override;
 
@@ -289,7 +289,7 @@ public:
 class StateBalance : public State
 {
 private:
-    unsigned _unsigned_input;
+    std::string _string_input;
 
     void _entry() override;
 
