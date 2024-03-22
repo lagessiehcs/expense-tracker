@@ -8,8 +8,8 @@ inline std::string ERROR_TEXT = "Oops, that input is invalid.  Please try again.
 inline std::string INIT_TEXT = ".--------------------------------------------------.\n"
                                "|                       MODE                       |\n"
                                "|--------------------------------------------------|\n"
-                               "| (1): User mode                                   |\n"
-                               "| (2): Auto generated mode (for performance test)  |\n"
+                               "| (1)  User mode                                   |\n"
+                               "| (2)  Auto generated mode (for performance test)  |\n"
                                "|                                                  |\n"
                                "| (00) Exit                                        |\n"
                                "*--------------------------------------------------*\n";
@@ -17,26 +17,31 @@ inline std::string INIT_TEXT = ".-----------------------------------------------
 inline std::string START_TEXT = ".--------------------------------------------------.\n"
                                 "|                      START                       |\n"
                                 "|--------------------------------------------------|\n"
-                                "| (1) Login                                        |\n"
-                                "| (2) New user                                     |\n"
+                                "| (1)  Login                                       |\n"
+                                "| (2)  New user                                    |\n"
                                 "|                                                  |\n"
-                                "| (0) Mode                                         |\n"
+                                "| (0)  Mode                                        |\n"
                                 "| (00) Exit                                        |\n"
                                 "*--------------------------------------------------*\n";
 
 // inline std::string CHOOSE_USER_TEXT = "-------------------------------------------------\n"
 //                                "-------------------------------------------------\n";
 
-inline std::string CREATE_USER_TEXT = "-------------------------------------------------\n"
-                                      "Enter your user name!\n"
-                                      "-------------------------------------------------\n";
+inline std::string CREATE_USER_TEXT = ".--------------------------------------------------.\n"
+                                      "|                     NEW USER                     |\n"
+                                      "|--------------------------------------------------|\n"
+                                      "| Enter your user name!                            |\n"
+                                      "*--------------------------------------------------*\n";
 
-inline std::string USER_HOME_TEXT = "-------------------------------------------------\n"
-                                    "(1) Join group\n"
-                                    "(2) New group\n"
-                                    "(3) My groups\n"
-                                    "\n(0) Log-out\n"
-                                    "-------------------------------------------------\n";
+inline std::string USER_HOME_TEXT = ".--------------------------------------------------.\n"
+                                    "|                       HOME                       |\n"
+                                    "|--------------------------------------------------|\n"
+                                    "| (1) Join group                                   |\n"
+                                    "| (2) New group                                    |\n"
+                                    "| (3) My groups                                    |\n"
+                                    "|                                                  |\n"
+                                    "| (0) Log-out                                      |\n"
+                                    "*--------------------------------------------------*\n";
 
 inline std::string CREATE_GROUP_TEXT = "-------------------------------------------------\n"
                                        "Enter group name!\n"
