@@ -117,11 +117,11 @@ StateChooseUser::StateChooseUser()
 
 void StateChooseUser::_entry()
 {
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
     print_all_users(_user_umap);
     std::cout << std::endl;
     std::cout << "(0) Back\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
     for (const auto &user : _user_umap)
     {
         _valid_input.push_back(std::to_string(user.first + 1));
@@ -280,11 +280,11 @@ StateChooseGroup::StateChooseGroup()
 void StateChooseGroup::_entry()
 {
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
     print_user_groups(_user_id, _user_umap, _group_umap);
     std::cout << std::endl;
     std::cout << "(0) Back\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
 
     const auto &group_ids = _user_umap[_user_id].group_ids();
     for (const auto &id : group_ids)
@@ -339,11 +339,11 @@ StateJoinGroup::StateJoinGroup()
 void StateJoinGroup::_entry()
 {
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
     print_all_groups(_group_umap);
     std::cout << std::endl;
     std::cout << "(0) Back\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
 
     for (const auto &group : _group_umap)
     {
@@ -469,11 +469,11 @@ void StateGroupMember::_entry()
 {
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
     _group_umap[_group_id].print_group_members(_user_umap, _group_umap);
     std::cout << std::endl;
     std::cout << "(0) Back\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
 }
 
 void StateGroupMember::_during()
@@ -569,11 +569,11 @@ void StateCheckExpense::_entry()
 {
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
     print_expenses(_group_id, _user_umap, _group_umap);
     std::cout << std::endl;
     std::cout << "(0) Back\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
 }
 
 void StateCheckExpense::_during()
@@ -609,11 +609,11 @@ void StateSettlement::_entry()
 {
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
     _group_umap[_group_id].create_settlement(_user_umap);
     std::cout << std::endl;
     std::cout << "(0) Back\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
 }
 
 void StateSettlement::_during()
@@ -728,11 +728,11 @@ void StateBalance::_entry()
 {
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
     _user_umap[_user_id].show_balance(_group_id);
     std::cout << std::endl;
     std::cout << "(0) Back\n";
-    std::cout << "=================================================\n";
+    std::cout << "-------------------------------------------------\n";
 }
 
 void StateBalance::_during()
