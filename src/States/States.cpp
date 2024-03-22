@@ -34,6 +34,7 @@ void StateInit::_during()
 
 StateName StateInit::transitions()
 {
+    std::system("clear");
     if (_string_input == "1")
     {
         return StateName::START;
@@ -85,6 +86,7 @@ void StateStart::_during()
 
 StateName StateStart::transitions()
 {
+    std::system("clear");
     if (_string_input == "1")
     {
         return StateName::CHOOSE_USER;
@@ -154,6 +156,7 @@ void StateChooseUser::_during()
 
 StateName StateChooseUser::transitions()
 {
+    std::system("clear");
     if (_string_input == "0")
     {
         return StateName::START;
@@ -185,6 +188,7 @@ void StateNewUser::_during()
 
 StateName StateNewUser::transitions()
 {
+    std::system("clear");
     return StateName::USER_HOME;
 }
 
@@ -221,6 +225,7 @@ void StateUserHome::_during()
 
 StateName StateUserHome::transitions()
 {
+    std::system("clear");
     if (_string_input == "1")
     {
         return StateName::JOIN_GROUP;
@@ -267,6 +272,7 @@ void StateNewGroup::_during()
 
 StateName StateNewGroup::transitions()
 {
+    std::system("clear");
     return StateName::GROUP_HOME;
 }
 
@@ -319,6 +325,7 @@ void StateChooseGroup::_during()
 
 StateName StateChooseGroup::transitions()
 {
+    std::system("clear");
     if (_string_input == "0")
     {
         return StateName::USER_HOME;
@@ -378,6 +385,7 @@ void StateJoinGroup::_during()
 
 StateName StateJoinGroup::transitions()
 {
+    std::system("clear");
     if (_string_input == "0")
     {
         return StateName::USER_HOME;
@@ -422,6 +430,7 @@ void StateGroupHome::_during()
 
 StateName StateGroupHome::transitions()
 {
+    std::system("clear");
 
     if (_string_input == "0")
     {
@@ -496,6 +505,7 @@ void StateGroupMember::_during()
 
 StateName StateGroupMember::transitions()
 {
+    std::system("clear");
     return StateName::GROUP_HOME;
 }
 
@@ -609,6 +619,7 @@ void StateAddExpense::_during()
 
 StateName StateAddExpense::transitions()
 {
+    std::system("clear");
     return StateName::GROUP_HOME;
 }
 
@@ -669,6 +680,7 @@ void StateCheckExpense::_during()
 
 StateName StateCheckExpense::transitions()
 {
+    std::system("clear");
     if (_string_input == "0")
     {
         return StateName::GROUP_HOME;
@@ -691,6 +703,7 @@ void StateSettlement::_entry()
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
     std::cout << "-------------------------------------------------\n";
+    // TODO: First show who owes who and ask if group members want to settle, donnot settle if user doesnt choose to do so
     _group_umap[_group_id].create_settlement(_user_umap);
     std::cout << std::endl;
     std::cout << "(0) Back\n";
@@ -717,6 +730,7 @@ void StateSettlement::_during()
 
 StateName StateSettlement::transitions()
 {
+    std::system("clear");
     return StateName::GROUP_HOME;
 }
 
@@ -754,6 +768,7 @@ void StateLeaveGroup::_during()
 
 StateName StateLeaveGroup::transitions()
 {
+    std::system("clear");
     return StateName::GROUP_HOME;
 }
 
@@ -800,6 +815,7 @@ void StateEditExpense::_during()
 
 StateName StateEditExpense::transitions()
 {
+    std::system("clear");
     return StateName::CHECK_EXPENSE;
 }
 
@@ -841,6 +857,7 @@ void StateBalance::_during()
 
 StateName StateBalance::transitions()
 {
+    std::system("clear");
     return StateName::GROUP_HOME;
 }
 
@@ -886,6 +903,7 @@ void StateAutoGen::_during()
 
 StateName StateAutoGen::transitions()
 {
+    std::system("clear");
     if (_string_input == "0")
     {
         return StateName::INIT;
@@ -919,5 +937,6 @@ void StateExit::_during()
 
 StateName StateExit::transitions()
 {
+    std::system("clear");
     return StateName::EXIT;
 }
