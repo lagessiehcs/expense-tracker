@@ -521,12 +521,6 @@ void StateAddExpense::_entry()
 
 void StateAddExpense::_during()
 {
-    _float_input = get_float("Add expense in Euro: ");
-    std::cout << "For whom are your paying?" << std::endl;
-    _group_umap[_group_id].print_group_members(_user_umap, _group_umap);
-    std::cout << std::endl;
-    std::cout << "(0) Finished\n";
-    std::cout << std::endl;
 
     while (true)
     {
@@ -535,7 +529,46 @@ void StateAddExpense::_during()
         if (_string_input == "0")
         {
             std::cout << std::endl;
-            std::cout << "Expense successfully added."; // TODO: "Any button/Enter to continue"
+            return;
+        }
+        try
+        {
+            _float_input = std::stof(_string_input);
+            break;
+        }
+        catch (const std::exception &error)
+        {
+            std::cerr << "Warning: " << error.what() << "\n";
+            std::cout << ERROR_TEXT;
+        }
+    }
+
+    std::cout << std::endl;
+    std::cout << "For whom are your paying?" << std::endl;
+    _group_umap[_group_id].print_group_members(_user_umap, _group_umap);
+    std::cout << std::endl;
+    std::cout << "(0) Finished" << std::endl;
+    std::cout << "(00) Cancel" << std::endl;
+
+    while (true)
+    {
+        _string_input = get_string("Input: ");
+
+        if (_string_input == "00")
+        {
+            _payee_ids = {};
+            return;
+        }
+
+        if (_string_input == "0")
+        {
+            if (_payee_ids.empty())
+            {
+                std::cout << std::endl;
+                std::cout << "Please input the payee(s) first!\n";
+                std::cout << "(To cancel input (00))\n";
+                continue;
+            }
             std::cout << std::endl;
             break;
         }
@@ -543,14 +576,19 @@ void StateAddExpense::_during()
         auto it = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
         if (it != _valid_input.end())
         {
-
             // TODO: Right now if a user is accidentally input multiple times,
             // it will just be added to payee_id multiple times, which will cause calculation errors. This needs to be fixed
             _payee_ids.push_back(std::stoi(_string_input) - 1); // payee_id = user_input-1
         }
-    };
+        else
+        {
+            std::cout << ERROR_TEXT;
+        }
+    }
 
     add_expense_to_group(_float_input * 100, _user_id, _payee_ids, _group_umap[_group_id], _user_umap);
+    _payee_ids = {};
+    _valid_input = {};
 }
 
 StateName StateAddExpense::transitions()
@@ -567,22 +605,42 @@ StateCheckExpense::StateCheckExpense()
 
 void StateCheckExpense::_entry()
 {
+    const auto &expenses = _group_umap[_group_id].expenses();
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
     std::cout << "-------------------------------------------------\n";
     print_expenses(_group_id, _user_umap, _group_umap);
+
+    if (not expenses.empty())
+    {
+        std::cout << "\n(Input the number before each expense to edit)\n";
+    }
     std::cout << std::endl;
     std::cout << "(0) Back\n";
     std::cout << "-------------------------------------------------\n";
+
+    for (const auto &expense : expenses)
+    {
+        _valid_input.push_back(std::to_string(expense.id() + 1));
+    }
 }
 
 void StateCheckExpense::_during()
 {
     while (true)
     {
-        _unsigned_input = get_unsigned("Input: ");
-        if (_unsigned_input == 0)
+        _string_input = get_string("Input: ");
+
+        if (_string_input == "0")
         {
+            std::cout << std::endl;
+            break;
+        }
+
+        auto it = std::find(_valid_input.begin(), _valid_input.end(), _string_input);
+        if (it != _valid_input.end())
+        {
+            _expense_id = std::stoi(_string_input) - 1;
             std::cout << std::endl;
             break;
         }
@@ -595,7 +653,14 @@ void StateCheckExpense::_during()
 
 StateName StateCheckExpense::transitions()
 {
-    return StateName::GROUP_HOME;
+    if (_string_input == "0")
+    {
+        return StateName::GROUP_HOME;
+    }
+    else
+    {
+        return StateName::EDIT_EXPENSE;
+    }
 }
 
 //-----SETTLEMENT----------------------------------------------
@@ -690,23 +755,26 @@ void StateEditExpense::_entry()
 
 void StateEditExpense::_during()
 {
-    _unsigned_input = get_unsigned("Which expense do you want to change: ");
-    _float_input = get_float("Amount you want to change to in Euro: ");
-    edit_expense(_group_umap[_group_id], _unsigned_input - 1, _float_input * 100);
-    std::cout << "Done!";
-    std::cout << std::endl;
-    std::cout << "Press (0) to go back";
-
     while (true)
     {
-        _unsigned_input = get_unsigned("Input: ");
-        if (_unsigned_input == 0)
+        _string_input = get_string("Input: ");
+
+        if (_string_input == "00")
         {
             std::cout << std::endl;
             break;
         }
-        else
+
+        try
         {
+            auto float_amount = std::stof(_string_input);
+            edit_expense(_group_umap[_group_id], _expense_id, float_amount * 100);
+            std::cout << "Expense successfully edited!";
+            break;
+        }
+        catch (const std::exception &error)
+        {
+            std::cerr << "Warning: " << error.what() << "\n";
             std::cout << ERROR_TEXT;
         }
     }
@@ -714,7 +782,7 @@ void StateEditExpense::_during()
 
 StateName StateEditExpense::transitions()
 {
-    return StateName::GROUP_HOME;
+    return StateName::CHECK_EXPENSE;
 }
 
 //-----BALANCE----------------------------------------------

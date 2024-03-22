@@ -219,7 +219,9 @@ public:
 class StateCheckExpense : public State
 {
 private:
-    unsigned _unsigned_input;
+    std::string _string_input;
+
+    std::vector<std::string> _valid_input;
 
     void _entry() override;
 
@@ -270,8 +272,7 @@ public:
 class StateEditExpense : public State
 {
 private:
-    float _float_input;
-    unsigned _unsigned_input;
+    std::string _string_input;
 
     void _entry() override;
 

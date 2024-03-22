@@ -55,7 +55,8 @@ inline std::string GROUP_HOME_TEXT = "------------------------------------------
 // inline std::string GROUP_MEMBER_TEXT =
 
 inline std::string ADD_EXPENSE_TEXT = "-------------------------------------------------\n"
-                                      "Add expense!\n"
+                                      "Add expense in Euro!\n"
+                                      "\n(0) Cancel\n"
                                       "-------------------------------------------------\n";
 
 // inline std::string CHECK_EXPENSE_TEXT = "-------------------------------------------------\n"
@@ -72,7 +73,8 @@ inline std::string LEAVE_GROUP_TEXT = "-----------------------------------------
                                       "-------------------------------------------------\n";
 
 inline std::string EDIT_EXPENSE_TEXT = "-------------------------------------------------\n"
-                                       "Edit expense!\n"
+                                       "Give in the amount you want to change Euro!\n"
+                                       "\n(00) Cancel\n"
                                        "-------------------------------------------------\n";
 
 inline std::string EXIT_TEXT = "-------------------------------------------------\n"

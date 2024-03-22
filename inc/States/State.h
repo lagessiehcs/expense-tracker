@@ -46,6 +46,7 @@ protected:
 
     static inline unsigned _user_id;
     static inline unsigned _group_id;
+    static inline unsigned _expense_id;
 
     static inline std::unordered_map<unsigned, User> _user_umap;
     static inline std::unordered_map<unsigned, Group> _group_umap;
