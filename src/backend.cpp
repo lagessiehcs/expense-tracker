@@ -29,6 +29,11 @@ void add_user_to_group(User &user, Group &group)
     group.add_member(user.id());
     user.join_group(group.id());
 }
+void remove_user_from_group(User &user, Group &group)
+{
+    group.remove_member(user.id());
+    user.leave_group(group.id());
+}
 
 unsigned add_group(std::string group_name, std::unordered_map<unsigned, Group> &group_umap)
 {

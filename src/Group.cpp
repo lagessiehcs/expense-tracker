@@ -35,6 +35,12 @@ void Group::add_member(const unsigned user_id)
     _member_ids.push_back(user_id);
 }
 
+void Group::remove_member(unsigned user_id)
+{
+    auto const it = std::find(_member_ids.begin(), _member_ids.end(), user_id);
+    _member_ids.erase(it);
+}
+
 void Group::add_expense(const Expense &expense)
 {
     _expenses.push_back(expense);

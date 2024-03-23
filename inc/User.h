@@ -5,6 +5,7 @@
 #include <vector>
 #include <unordered_map>
 #include <iostream>
+#include <algorithm>
 
 class User
 {
@@ -25,6 +26,7 @@ public:
     unsigned id() const;
     std::vector<unsigned> group_ids() const;
     void join_group(unsigned group_id);
+    void leave_group(unsigned group_id);
     void update_balance(unsigned group_id, unsigned balance);
     std::unordered_map<unsigned, int> balance();
     void show_balance(unsigned group_id);

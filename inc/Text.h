@@ -81,11 +81,7 @@ inline const std::string_view ADD_EXPENSE_TEXT = ".-----------------------------
 //                                  "-------------------------------------------------\n";
 
 inline const std::string_view LEAVE_GROUP_TEXT = ".--------------------------------------------------.\n"
-                                                 "|                   LEAVE_GROUP                    |\n"
-                                                 "|--------------------------------------------------|\n"
-                                                 "| This feature is not yet available.               |\n"
-                                                 "|                                                  |\n"
-                                                 "| (0) Back                                         |\n"
+                                                 "|                 LEAVING GROUP...                 |\n"
                                                  "*--------------------------------------------------*\n";
 
 inline const std::string_view EDIT_EXPENSE_TEXT = ".--------------------------------------------------.\n"

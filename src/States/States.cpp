@@ -750,13 +750,47 @@ void StateLeaveGroup::_entry()
 
 void StateLeaveGroup::_during()
 {
+    if (_user_umap[_user_id].balance()[_group_id] != 0)
+    {
+        std::cout << "You could not leave this group yet, ";
+        if (_user_umap[_user_id].balance()[_group_id] < 0)
+        {
+            std::cout << "pay your debt first.\n\n";
+        }
+        else if (_user_umap[_user_id].balance()[_group_id] > 0)
+        {
+            std::cout << "some body still owes you money.\n\n";
+        }
+        std::cout << "(0) Back\n";
+
+        while (true)
+        {
+            _string_input = get_string("Input: ");
+
+            if (_string_input == "0")
+            {
+                std::cout << std::endl;
+                return;
+            }
+            else
+            {
+                std::cout << ERROR_TEXT;
+            }
+        }
+    }
+
     while (true)
     {
-        _string_input = get_string("Input: ");
+        _string_input = get_string("Are you sure you want to leave this group? You can join back anytime.\n\n(1) Leave     (0) Cancel\n");
 
         if (_string_input == "0")
         {
             std::cout << std::endl;
+            break;
+        }
+        else if (_string_input == "1")
+        {
+            remove_user_from_group(_user_umap[_user_id], _group_umap[_group_id]);
             break;
         }
         else
@@ -769,6 +803,12 @@ void StateLeaveGroup::_during()
 StateName StateLeaveGroup::transitions()
 {
     std::system("clear");
+    auto user_groupids = _user_umap[_user_id].group_ids();
+    auto it = std::find(user_groupids.begin(), user_groupids.end(), _group_id);
+    if (it == user_groupids.end())
+    {
+        return StateName::USER_HOME;
+    }
     return StateName::GROUP_HOME;
 }
 
@@ -937,6 +977,5 @@ void StateExit::_during()
 
 StateName StateExit::transitions()
 {
-    std::system("clear");
     return StateName::EXIT;
 }

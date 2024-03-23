@@ -7,6 +7,7 @@
 #include "Expense.h"
 #include <cmath>
 #include <unordered_map>
+#include <algorithm>
 
 class Settlement;
 class Group
@@ -29,6 +30,7 @@ public:
     std::vector<Expense> expenses() const;
     void edit_expenses(unsigned, unsigned);
     void add_member(const unsigned user_id);
+    void remove_member(unsigned user_id);
     void add_expense(const Expense &expense);
     void update_member_balance(const Expense &expense, std::unordered_map<unsigned, User> &user_umap);
     void create_settlement(std::unordered_map<unsigned, User> &user_umap);

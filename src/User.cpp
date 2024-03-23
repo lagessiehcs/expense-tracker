@@ -26,6 +26,12 @@ void User::join_group(unsigned group_id)
     _group_ids.push_back(group_id);
 }
 
+void User::leave_group(unsigned group_id)
+{
+    auto const it = std::find(_group_ids.begin(), _group_ids.end(), group_id);
+    _group_ids.erase(it);
+}
+
 void User::update_balance(unsigned group_id, unsigned balance)
 {
     _balance[group_id] += balance;
