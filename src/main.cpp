@@ -6,7 +6,7 @@
 StateInit s_init;
 
 StateStart s_start;
-StateChooseUser s_choose_user;
+StateLogin s_choose_user;
 StateNewUser s_create_user;
 
 StateUserHome s_user_home;
@@ -30,7 +30,7 @@ StateExit s_exit;
 // array of states
 std::vector<std::shared_ptr<State>> states = {std::make_shared<StateInit>(s_init),
                                               std::make_shared<StateStart>(s_start),
-                                              std::make_shared<StateChooseUser>(s_choose_user),
+                                              std::make_shared<StateLogin>(s_choose_user),
                                               std::make_shared<StateNewUser>(s_create_user),
                                               std::make_shared<StateUserHome>(s_user_home),
                                               std::make_shared<StateNewGroup>(s_create_group),

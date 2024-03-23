@@ -89,7 +89,7 @@ StateName StateStart::transitions()
     std::system("clear");
     if (_string_input == "1")
     {
-        return StateName::CHOOSE_USER;
+        return StateName::LOGIN;
     }
     else if (_string_input == "2")
     {
@@ -110,14 +110,14 @@ StateName StateStart::transitions()
     }
 }
 
-//-----CHOOSE_USER----------------------------------------------
+//-----LOGIN----------------------------------------------
 
-StateChooseUser::StateChooseUser()
-    : State(StateName::CHOOSE_USER)
+StateLogin::StateLogin()
+    : State(StateName::LOGIN)
 {
 }
 
-void StateChooseUser::_entry()
+void StateLogin::_entry()
 {
     std::cout << "-------------------------------------------------\n";
     print_all_users(_user_umap);
@@ -130,7 +130,7 @@ void StateChooseUser::_entry()
     }
 }
 
-void StateChooseUser::_during()
+void StateLogin::_during()
 {
     while (true)
     {
@@ -154,7 +154,7 @@ void StateChooseUser::_during()
     }
 }
 
-StateName StateChooseUser::transitions()
+StateName StateLogin::transitions()
 {
     std::system("clear");
     if (_string_input == "0")

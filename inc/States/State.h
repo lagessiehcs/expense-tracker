@@ -10,7 +10,7 @@ enum class StateName
     INIT,
 
     START,
-    CHOOSE_USER,
+    LOGIN,
     NEW_USER,
 
     USER_HOME,

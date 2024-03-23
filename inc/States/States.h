@@ -41,9 +41,9 @@ public:
     StateStart();
 };
 
-//-----CHOOSE_USER----------------------------------------------
+//-----LOGIN----------------------------------------------
 
-class StateChooseUser : public State
+class StateLogin : public State
 {
 private:
     std::string _string_input;
@@ -57,7 +57,7 @@ private:
     StateName transitions();
 
 public:
-    StateChooseUser();
+    StateLogin();
 };
 
 //-----NEW_USER----------------------------------------------
