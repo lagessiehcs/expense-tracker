@@ -27,7 +27,7 @@ StateAutoGen s_autogen;
 
 StateExit s_exit;
 
-// array of states
+// vector of states
 std::vector<std::shared_ptr<State>> states = {std::make_shared<StateInit>(s_init),
                                               std::make_shared<StateStart>(s_start),
                                               std::make_shared<StateLogin>(s_choose_user),
