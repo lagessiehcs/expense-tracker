@@ -6,16 +6,23 @@ void print_all_users(const std::unordered_map<unsigned, User> &user_umap)
 
     if (user_umap.empty())
     {
-        std::cout << "No users yet! Go back and create a user!\n";
+        std::cout << "| No users yet! Go back and create a user!         |\n";
+        std::cout << "*--------------------------------------------------*\n";
+        return;
     }
     else
     {
-        std::cout << "Users:\n";
+        std::cout << "| Users:                                           |\n";
         for (const auto &[id, user] : user_umap)
         {
-            std::cout << "(" << id + 1 << ") " << user.name() << "\n";
+            std::string string = " (" + std::to_string(id + 1) + ") " + user.name();
+            std::string space(50 - string.length(), ' ');
+            std::cout << "|" << string << space << "|\n";
         }
     }
+    std::cout << "|                                                  |\n";
+    std::cout << "| (0) Back                                         |\n";
+    std::cout << "*--------------------------------------------------*\n";
 }
 
 void print_all_groups(const std::unordered_map<unsigned, Group> &group_umap)

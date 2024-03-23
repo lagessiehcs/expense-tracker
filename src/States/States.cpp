@@ -119,11 +119,8 @@ StateLogin::StateLogin()
 
 void StateLogin::_entry()
 {
-    std::cout << "-------------------------------------------------\n";
+    std::cout << LOGIN_TEXT;
     print_all_users(_user_umap);
-    std::cout << std::endl;
-    std::cout << "(0) Back\n";
-    std::cout << "-------------------------------------------------\n";
     for (const auto &user : _user_umap)
     {
         _valid_input.push_back(std::to_string(user.first + 1));
