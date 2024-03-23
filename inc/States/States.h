@@ -10,7 +10,7 @@ class StateInit : public State
 private:
     std::string _string_input;
 
-    std::vector<std::string> _valid_input = {"1", "2", "00"};
+    const std::vector<std::string> _valid_input = {"1", "2", "00"};
 
     void _entry() override;
 
@@ -29,7 +29,7 @@ class StateStart : public State
 private:
     std::string _string_input;
 
-    std::vector<std::string> _valid_input = {"1", "2", "0", "00"};
+    const std::vector<std::string> _valid_input = {"1", "2", "0", "00"};
 
     void _entry() override;
 
@@ -84,7 +84,7 @@ class StateUserHome : public State
 private:
     std::string _string_input;
 
-    std::vector<std::string> _valid_input = {"1", "2", "3", "0"};
+    const std::vector<std::string> _valid_input = {"1", "2", "3", "0"};
 
     void _entry() override;
 
@@ -158,7 +158,7 @@ class StateGroupHome : public State
 private:
     std::string _string_input;
 
-    std::vector<std::string> _valid_input = {"0", "1", "2", "3", "4", "5", "6"};
+    const std::vector<std::string> _valid_input = {"0", "1", "2", "3", "4", "5", "6"};
 
     void _entry() override;
 
@@ -179,7 +179,7 @@ private:
 
     std::string _string_input;
 
-    std::vector<std::string> _valid_input = {"0"};
+    const std::vector<std::string> _valid_input = {"0"};
 
     void _entry() override;
 
@@ -310,7 +310,7 @@ private:
 
     std::string _string_input;
 
-    std::vector<std::string> _valid_input = {"0", "00"};
+    const std::vector<std::string> _valid_input = {"0", "00"};
 
     void _entry() override;
 
