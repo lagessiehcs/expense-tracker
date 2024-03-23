@@ -1,4 +1,5 @@
 # Expense Tracker
+
 Idea contributed by Gia-Phong Tran giaphong.tran@tum.de and Peter Riske peter.riske@tum.de.
 
 ## Motivation
@@ -9,11 +10,20 @@ The Expense Tracker is able to share group expenses in an efficient way, i.e. to
 
 ## Building
 
-```
+In your terminal:
+
+```shell
 mkdir build
 cd build 
 cmake -S ../src/ -G "Unix Makefiles"
 make
+```
+## Running
+
+In your terminal:
+
+```shell
+./ExpenseTracker
 ```
 
 ## Using the Program 
