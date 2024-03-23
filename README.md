@@ -31,6 +31,6 @@ The first thing you need to do when running the app, is choosing a mode:
 (1): User mode: Choose this mode if you want to use the app as a normal user.   
 (2): Auto generated mode: Choose this mode if you want to perform performance tests.   
 
-Additional Info for user mode: The program is built with different pages (or levels). To navigate, you just need to enter the respective numbers and hit enter!
+Additional info for user mode: The program is built with different pages (or levels). To navigate, you just need to enter the respective numbers and hit enter!
 
 Have fun settling expenses with your friends!
