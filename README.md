@@ -9,7 +9,6 @@ The Expense Tracker is able to share group expenses in an efficient way, i.e. to
 ## Compilation
 
 ### Compilation with Cmake
-The code can be compiled alternatively using Cmake:
 ```
 mkdir build
 cd ./build 
