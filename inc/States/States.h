@@ -2,6 +2,7 @@
 #include "../Text.h"
 #include "../get_input.h"
 #include "../auto_generate.h"
+#include <chrono>
 
 //-----INIT----------------------------------------------
 
@@ -311,6 +312,9 @@ private:
     std::string _string_input;
 
     const std::vector<std::string> _valid_input = {"0", "00"};
+
+    std::chrono::time_point<std::chrono::system_clock> start;
+    std::chrono::time_point<std::chrono::system_clock> end;
 
     void _entry() override;
 
