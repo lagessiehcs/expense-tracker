@@ -59,11 +59,9 @@ void User::show_balance(unsigned group_id)
     }
 }
 
-void User::print_user_groups(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap)
+void User::print_user_groups(const std::unordered_map<unsigned, Group> &group_umap)
 {
-    const auto &group_ids = user_umap.find(_id)->second.group_ids(); // Find() instead of [], because user_umap is const, but operator[] not
-
-    if (group_ids.empty())
+    if (_group_ids.empty())
     {
         std::cout << "You did not join a group yet!\n";
         std::cout << "Go back and join or create a group!\n";
@@ -71,7 +69,7 @@ void User::print_user_groups(const std::unordered_map<unsigned, User> &user_umap
     else
     {
         std::cout << "My groups:\n";
-        for (auto id : group_ids)
+        for (auto id : _group_ids)
         {
             std::cout << "(" << id + 1 << ") " << group_umap.find(id)->second.name() << "\n";
         }

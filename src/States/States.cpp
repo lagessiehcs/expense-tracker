@@ -284,7 +284,7 @@ void StateChooseGroup::_entry()
 {
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "-------------------------------------------------\n";
-    print_user_groups(_user_id, _user_umap, _group_umap);
+    _user_umap[_user_id].print_user_groups(_group_umap);
     std::cout << std::endl;
     std::cout << "(0) Back\n";
     std::cout << "-------------------------------------------------\n";
@@ -728,7 +728,7 @@ StateName StateSettlement::transitions()
 }
 
 //-----LEAVE_GROUP----------------------------------------------
-// TODO: Implement LEAVE_GROUP
+
 StateLeaveGroup::StateLeaveGroup()
     : State(StateName::LEAVE_GROUP)
 {
