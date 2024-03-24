@@ -838,8 +838,7 @@ void StateEditExpense::_during()
         try
         {
             auto float_amount = std::stof(_string_input);
-            edit_expense(_group_umap[_group_id], _expense_id, float_amount * 100);
-            std::cout << "Expense successfully edited!";
+            _group_umap[_group_id].edit_expenses(_expense_id, float_amount * 100);
             break;
         }
         catch (const std::exception &error)

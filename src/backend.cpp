@@ -57,8 +57,3 @@ Expense add_expense_to_group(unsigned amount, unsigned payer_id, std::vector<uns
     group.update_member_balance(expense, user_list);
     return expense;
 }
-
-void edit_expense(Group &group, unsigned expense_id, unsigned new_amount)
-{
-    group.edit_expenses(expense_id, new_amount);
-}
