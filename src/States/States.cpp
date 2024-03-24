@@ -343,11 +343,9 @@ StateJoinGroup::StateJoinGroup()
 void StateJoinGroup::_entry()
 {
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
-    std::cout << "-------------------------------------------------\n";
+    std::cout << JOIN_GROUP_TEXT;
     print_all_groups(_group_umap);
     std::cout << std::endl;
-    std::cout << "(0) Back\n";
-    std::cout << "-------------------------------------------------\n";
 
     for (const auto &group : _group_umap)
     {
@@ -576,6 +574,7 @@ void StateAddExpense::_during()
                 std::cout << "(To cancel input (00))\n";
                 continue;
             }
+            expense_added = true;
             std::cout << std::endl;
             break;
         }
@@ -617,6 +616,11 @@ void StateAddExpense::_during()
 StateName StateAddExpense::transitions()
 {
     std::system("clear");
+    if (expense_added)
+    {
+        expense_added = false;
+        return StateName::CHECK_EXPENSE;
+    }
     return StateName::GROUP_HOME;
 }
 

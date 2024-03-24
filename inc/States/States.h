@@ -203,6 +203,8 @@ private:
 
     std::vector<std::string> _valid_input;
 
+    bool expense_added{false};
+
     std::vector<unsigned> _payee_ids;
 
     void _entry() override;
