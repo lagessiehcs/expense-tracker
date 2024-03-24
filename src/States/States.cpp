@@ -176,7 +176,7 @@ void StateNewUser::_entry()
     std::cout << NEW_USER_TEXT;
 }
 
-void StateNewUser::_during()
+void StateNewUser::_during() // TODO: Add option cancel in case users change their mind
 {
     _string_input = get_string("Input: ");
     std::cout << std::endl;
@@ -259,7 +259,7 @@ void StateNewGroup::_entry()
     std::cout << NEW_GROUP_TEXT;
 }
 
-void StateNewGroup::_during()
+void StateNewGroup::_during() // TODO: Add option cancel in case users change their mind.
 {
     _string_input = get_string("Input: ");
     std::cout << std::endl;
