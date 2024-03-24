@@ -9,7 +9,7 @@
 #include <unordered_map>
 #include <algorithm>
 
-class Settlement;
+class User;
 class Group
 {
 private:

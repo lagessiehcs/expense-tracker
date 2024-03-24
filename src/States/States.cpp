@@ -344,7 +344,7 @@ void StateJoinGroup::_entry()
 {
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
     std::cout << JOIN_GROUP_TEXT;
-    print_all_groups(_group_umap);
+    print_all_groups(_group_umap); // TODO: only print unjoined groups
     std::cout << std::endl;
 
     for (const auto &group : _group_umap)

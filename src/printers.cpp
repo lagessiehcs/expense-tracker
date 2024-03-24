@@ -47,25 +47,6 @@ void print_all_groups(const std::unordered_map<unsigned, Group> &group_umap)
     return;
 }
 
-void print_user_groups(unsigned user_id, const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap)
-{
-    const auto &group_ids = user_umap.find(user_id)->second.group_ids(); // Find() instead of [], because user_umap is const, but operator[] not
-
-    if (group_ids.empty())
-    {
-        std::cout << "You did not join a group yet!\n";
-        std::cout << "Go back and join or create a group!\n";
-    }
-    else
-    {
-        std::cout << "My groups:\n";
-        for (auto id : group_ids)
-        {
-            std::cout << "(" << id + 1 << ") " << group_umap.find(id)->second.name() << "\n";
-        }
-    }
-}
-
 void print_expenses(unsigned group_id, const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap)
 {
     const auto &expenses = group_umap.find(group_id)->second.expenses(); // Find() instead of [], because group_umap is const, but operator[] not
