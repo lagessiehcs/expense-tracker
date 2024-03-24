@@ -3,7 +3,7 @@
 
 #include <string>
 
-constexpr std::string_view ERROR_TEXT = "Oops, that input is invalid.  Please try again.\n";
+constexpr std::string_view ERROR_TEXT = "Oops, that input is invalid. Please try again.\n";
 
 constexpr std::string_view INIT_TEXT = ".--------------------------------------------------.\n"
                                        "|                       MODE                       |\n"
@@ -77,9 +77,9 @@ constexpr std::string_view ADD_EXPENSE_TEXT = ".--------------------------------
                                               "| (0) Cancel                                       |\n"
                                               "---------------------------------------------------*\n";
 
-// std::string_view CHECK_EXPENSE_TEXT = "-------------------------------------------------\n"
-//                                  "Check expense!\n"
-//                                  "-------------------------------------------------\n";
+constexpr std::string_view CHECK_EXPENSE_TEXT = ".--------------------------------------------------.\n"
+                                                "|                     EXPENSES                     |\n"
+                                                "|--------------------------------------------------|\n";
 
 // std::string_view SETTLEMENT_TEXT = "-------------------------------------------------\n"
 //                                  "Settlement!\n"

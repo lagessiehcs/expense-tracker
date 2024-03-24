@@ -549,11 +549,12 @@ void StateAddExpense::_during()
     }
 
     std::cout << std::endl;
-    std::cout << "For whom are your paying?" << std::endl;
+    std::cout << ".--------------------------------------------------.\n";
+    std::cout << "| For whom are your paying?                        |\n";
     _group_umap[_group_id].print_group_members(_user_umap, _group_umap);
-    std::cout << std::endl;
-    std::cout << "(0) Finished" << std::endl;
-    std::cout << "(00) Cancel" << std::endl;
+    std::cout << "| (0) Finished                                     | \n";
+    std::cout << "| (00) Cancel                                      |\n";
+    std::cout << "*--------------------------------------------------*\n";
 
     while (true)
     {
@@ -561,7 +562,6 @@ void StateAddExpense::_during()
 
         if (_string_input == "00")
         {
-            _payee_ids = {};
             return;
         }
 
@@ -609,13 +609,13 @@ void StateAddExpense::_during()
     }
 
     add_expense_to_group(_float_input * 100, _user_id, _payee_ids, _group_umap[_group_id], _user_umap);
-    _payee_ids = {};
-    _valid_input = {};
 }
 
 StateName StateAddExpense::transitions()
 {
     std::system("clear");
+    _payee_ids = {};
+    _valid_input = {};
     if (expense_added)
     {
         expense_added = false;
@@ -636,16 +636,8 @@ void StateCheckExpense::_entry()
     const auto &expenses = _group_umap[_group_id].expenses();
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "-------------------------------------------------\n";
+    std::cout << CHECK_EXPENSE_TEXT;
     print_expenses(_group_id, _user_umap, _group_umap);
-
-    if (not expenses.empty())
-    {
-        std::cout << "\n(Input the number before each expense to edit)\n";
-    }
-    std::cout << std::endl;
-    std::cout << "(0) Back\n";
-    std::cout << "-------------------------------------------------\n";
 
     for (const auto &expense : expenses)
     {

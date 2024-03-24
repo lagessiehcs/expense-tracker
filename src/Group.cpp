@@ -117,16 +117,14 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
 void Group::print_group_members(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap) const
 {
     const auto &member_ids = group_umap.find(_id)->second.member_ids(); // Find() instead of [], because group_umap is const, but operator[] not
-    if (group_umap.find(_id)->second.member_ids().empty())
+
+    std::cout << "| Group member(s):                                 |\n";
+    for (auto member_id : member_ids)
     {
-        std::cout << "This group is empty!\n";
+
+        std::string string = " (" + std::to_string(member_id + 1) + ") " + user_umap.find(member_id)->second.name();
+        std::string spaces(50 - string.length(), ' ');
+        std::cout << "|" << string << spaces << "|\n";
     }
-    else
-    {
-        std::cout << "Group member(s):\n";
-        for (auto member_id : group_umap.find(_id)->second.member_ids())
-        {
-            std::cout << "(" << member_id + 1 << ") " << user_umap.find(member_id)->second.name() << "\n";
-        }
-    }
+    std::cout << "|                                                  |\n";
 }
