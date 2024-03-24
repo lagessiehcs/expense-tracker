@@ -34,6 +34,7 @@ public:
     std::unordered_map<unsigned, int> balance();
     void show_balance(unsigned group_id);
     void print_user_groups(const std::unordered_map<unsigned, Group> &);
+    void print_unjoined_groups(const std::unordered_map<unsigned, Group> &);
 };
 
 #endif

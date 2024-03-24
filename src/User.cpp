@@ -63,15 +63,50 @@ void User::print_user_groups(const std::unordered_map<unsigned, Group> &group_um
 {
     if (_group_ids.empty())
     {
-        std::cout << "You did not join a group yet!\n";
-        std::cout << "Go back and join or create a group!\n";
+        std::cout << "| You have not joined a group yet!                 |\n";
     }
     else
     {
-        std::cout << "My groups:\n";
+        std::cout << "| My groups:                                       |\n";
         for (auto id : _group_ids)
         {
-            std::cout << "(" << id + 1 << ") " << group_umap.find(id)->second.name() << "\n";
+            std::string string = " (" + std::to_string(id + 1) + ") " + group_umap.find(id)->second.name();
+            std::string spaces(50 - string.length(), ' ');
+            std::cout << "|" << string << spaces << "|\n";
         }
     }
+    std::cout << "|                                                  |\n";
+    std::cout << "| (0) Back                                         |\n";
+    std::cout << "*--------------------------------------------------*\n";
+}
+
+void User::print_unjoined_groups(const std::unordered_map<unsigned, Group> &group_umap)
+{
+    bool no_unjoined_group = true;
+    if (group_umap.empty())
+    {
+        std::cout << "| No groups yet! Go back and create a group!       |\n";
+    }
+    else
+    {
+        for (const auto &group : group_umap)
+        {
+            const auto &it = std::find(_group_ids.begin(), _group_ids.end(), group.first);
+            if (it == _group_ids.end())
+            {
+                no_unjoined_group = false;
+                std::string string = " (" + std::to_string(group.first + 1) + ") " + group.second.name();
+                std::string spaces(50 - string.length(), ' ');
+                std::cout << "|" << string << spaces << "|\n";
+            }
+        }
+        if (no_unjoined_group)
+        {
+            std::cout << "| You have joined all existed group!               |\n";
+        }
+    }
+
+    std::cout << "|                                                  |\n";
+    std::cout << "| (0) Back                                         |\n";
+    std::cout << "*--------------------------------------------------*\n";
 }
