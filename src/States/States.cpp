@@ -283,11 +283,9 @@ StateChooseGroup::StateChooseGroup()
 void StateChooseGroup::_entry()
 {
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
-    std::cout << "-------------------------------------------------\n";
+    std::cout << CHOOSE_GROUP_TEXT;
     _user_umap[_user_id].print_user_groups(_group_umap);
     std::cout << std::endl;
-    std::cout << "(0) Back\n";
-    std::cout << "-------------------------------------------------\n";
 
     const auto &group_ids = _user_umap[_user_id].group_ids();
     for (const auto &id : group_ids)
@@ -344,12 +342,17 @@ void StateJoinGroup::_entry()
 {
     std::cout << "\nHello " << _user_umap[_user_id].name() << "!\n";
     std::cout << JOIN_GROUP_TEXT;
-    print_all_groups(_group_umap); // TODO: only print unjoined groups
+    _user_umap[_user_id].print_unjoined_groups(_group_umap); // TODO: only print unjoined groups
     std::cout << std::endl;
 
     for (const auto &group : _group_umap)
     {
-        _valid_input.push_back(std::to_string(group.first + 1));
+        const auto &group_id = _user_umap[_user_id].group_ids();
+        auto it = std::find(group_id.begin(), group_id.end(), group.first);
+        if (it == group_id.end())
+        {
+            _valid_input.push_back(std::to_string(group.first + 1));
+        }
     }
 }
 
@@ -380,6 +383,7 @@ void StateJoinGroup::_during()
 
 StateName StateJoinGroup::transitions()
 {
+    _valid_input = {};
     std::system("clear");
     if (_string_input == "0")
     {
@@ -695,7 +699,7 @@ void StateSettlement::_entry()
 {
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "-------------------------------------------------\n";
+    std::cout << "-------------------------------------------------\n"; // TODO: update text to be in a box
     // TODO: First show who owes who and ask if group members want to settle, donnot settle if user doesnt choose to do so
     _group_umap[_group_id].create_settlement(_user_umap);
     std::cout << std::endl;
