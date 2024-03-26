@@ -34,3 +34,6 @@ The first thing you need to do when running the app, is choosing a mode:
 Additional info for user mode: The program is built with different pages (or levels). To navigate, you just need to enter the respective numbers and hit enter!
 
 Have fun settling expenses with your friends!
+
+## Ideas
+* Apply visitor for tasks such as adding user to group.
