@@ -73,12 +73,12 @@ constexpr std::string_view GROUP_HOME_TEXT = ".---------------------------------
 // std::string_view GROUP_MEMBER_TEXT =
 
 constexpr std::string_view ADD_EXPENSE_TEXT = ".--------------------------------------------------.\n"
-                                              "|                    GROUP HOME                    |\n"
+                                              "|                    ADD EXPENSE                   |\n"
                                               "|--------------------------------------------------|\n"
                                               "| Add expense in Euro!                             |\n"
                                               "|                                                  |\n"
-                                              "| (00) Cancel                                       |\n"
-                                              "---------------------------------------------------*\n";
+                                              "| (00) Cancel                                      |\n"
+                                              "*--------------------------------------------------*\n";
 
 constexpr std::string_view CHECK_EXPENSE_TEXT = ".--------------------------------------------------.\n"
                                                 "|                     EXPENSES                     |\n"

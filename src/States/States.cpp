@@ -535,7 +535,7 @@ void StateAddExpense::_during()
     {
         _string_input = get_string("Input: ");
 
-        if (_string_input == "0")
+        if (_string_input == "00")
         {
             std::cout << std::endl;
             return;
