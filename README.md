@@ -36,4 +36,5 @@ Additional info for user mode: The program is built with different pages (or lev
 Have fun settling expenses with your friends!
 
 ## Ideas
+* Save data so that users and groups survive after the programm is terminated
 * Apply visitor for tasks such as adding user to group.
