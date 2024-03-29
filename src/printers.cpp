@@ -59,14 +59,28 @@ void print_expenses(unsigned group_id, const std::unordered_map<unsigned, User> 
     {
         for (const auto &expense : expenses)
         {
-            std::string string = " (" + std::to_string(expense.id() + 1) + ") " + user_umap.find(expense.payer_id())->second.name() + " paid " + std::to_string((int)(expense.amount() * 0.01)) + " Euro for: ";
-            std::string spaces1(50 - string.length(), ' ');
-            std::cout << "|" << string << spaces1 << "|\n";
+            auto number = std::to_string(expense.id() + 1);
+            std::string string = " (" + number + ") " + user_umap.find(expense.payer_id())->second.name() + " paid " + std::to_string((int)(expense.amount() * 0.01)) + " Euro for: ";
+            std::string spaces(50 - string.length(), ' ');
+            std::cout << "|" << string << spaces << "|\n";
 
-            string = "     ";
+            string.assign(4 + number.length(), ' ');
+
             for (auto id : expense.payee_ids())
             {
-                string += user_umap.find(id)->second.name();
+                auto payee_name = user_umap.find(id)->second.name();
+                if (string.length() + payee_name.length() + 2 < 50) // 2 for ", " or "."
+                {
+                    string += payee_name;
+                }
+                else
+                {
+                    spaces.assign(50 - string.length(), ' ');
+                    std::cout << "|" << string << spaces << "|\n";
+                    string.assign(4 + number.length(), ' ');
+                    string += payee_name;
+                }
+
                 if (id != expense.payee_ids().back())
                 {
                     string += ", ";
@@ -76,8 +90,8 @@ void print_expenses(unsigned group_id, const std::unordered_map<unsigned, User> 
                     string += ".";
                 }
             }
-            std::string spaces2(50 - string.length(), ' ');
-            std::cout << "|" << string << spaces2 << "|\n";
+            spaces.assign(50 - string.length(), ' ');
+            std::cout << "|" << string << spaces << "|\n";
             std::cout << "|                                                  |\n";
         }
     }
