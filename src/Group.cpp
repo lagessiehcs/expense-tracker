@@ -86,25 +86,49 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
         }
     }
 
-    while (not debtor_ids.empty())
+    while (!debtor_ids.empty())
     {
+        auto creditor_id = creditor_ids.back();
+        auto debtor_id = debtor_ids.back();
 
-        auto *current_creditor = &user_umap[creditor_ids.back()];
-        auto *current_debtor = &user_umap[debtor_ids.back()];
+        // find if there is a debtor that owes the same amount as the current creditor gets
+        auto it = std::find_if(debtor_ids.begin(), debtor_ids.end(),
+                               [&user_umap, creditor_id, this](unsigned id)
+                               { return user_umap[id].balance()[_id] == -user_umap[creditor_id].balance()[_id]; });
 
-        auto transaction_amount = std::min(current_creditor->balance()[_id], -current_debtor->balance()[_id]);
-        std::cout << current_debtor->name() << " owes " << current_creditor->name() << " " << transaction_amount * 0.01 << " Euro.\n";
-
-        current_debtor->update_balance(_id, transaction_amount);
-        if (current_debtor->balance()[_id] == 0)
+        if (it != debtor_ids.end())
         {
-            debtor_ids.pop_back();
+            debtor_id = *it;
+        }
+        else
+        {
+            // find if there is a creditor that gets the same amount as the current creditor owes
+            it = std::find_if(creditor_ids.begin(), creditor_ids.end(),
+                              [&user_umap, debtor_id, this](unsigned id)
+                              { return user_umap[id].balance()[_id] == -user_umap[debtor_id].balance()[_id]; });
+
+            if (it != creditor_ids.end())
+            {
+                creditor_id = *it;
+            }
         }
 
-        current_creditor->update_balance(_id, -transaction_amount);
-        if (current_creditor->balance()[_id] == 0)
+        auto &creditor = user_umap[creditor_id];
+        auto &debtor = user_umap[debtor_id];
+
+        auto transaction_amount = std::min(creditor.balance()[_id], -debtor.balance()[_id]);
+        std::cout << debtor.name() << " owes " << creditor.name() << " " << transaction_amount * 0.01 << " Euro.\n";
+
+        debtor.update_balance(_id, transaction_amount);
+        if (debtor.balance()[_id] == 0)
         {
-            creditor_ids.pop_back();
+            debtor_ids.erase(std::remove(debtor_ids.begin(), debtor_ids.end(), debtor_id), debtor_ids.end());
+        }
+
+        creditor.update_balance(_id, -transaction_amount);
+        if (creditor.balance()[_id] == 0)
+        {
+            creditor_ids.erase(std::remove(creditor_ids.begin(), creditor_ids.end(), creditor_id), creditor_ids.end());
         }
     }
 
