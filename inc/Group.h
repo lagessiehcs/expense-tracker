@@ -18,10 +18,6 @@ private:
     std::vector<unsigned> _member_ids;
     std::vector<Expense> _expenses;
 
-    // static class member: shared across all class objects
-    // inline: so we can initialize it here.
-    static inline unsigned counter{0};
-
 public:
     Group(std::string = "");
     unsigned id() const;
@@ -35,6 +31,10 @@ public:
     void update_member_balance(const Expense &expense, std::unordered_map<unsigned, User> &user_umap);
     void create_settlement(std::unordered_map<unsigned, User> &user_umap);
     void print_group_members(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap) const;
+
+    // static class member: shared across all class objects
+    // inline: so we can initialize it here.
+    static inline unsigned counter{0};
 };
 
 #endif

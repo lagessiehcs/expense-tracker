@@ -19,10 +19,6 @@ private:
     std::unordered_map<unsigned, int> _balance;
     std::vector<unsigned> _group_ids;
 
-    // static class member: shared across all class objects
-    // inline: so we can initialize it here.
-    static inline unsigned counter = 0;
-
 public:
     User(std::string name = "");
     std::string name() const;
@@ -35,6 +31,10 @@ public:
     void show_balance(unsigned group_id);
     void print_user_groups(const std::unordered_map<unsigned, Group> &);
     void print_unjoined_groups(const std::unordered_map<unsigned, Group> &);
+
+    // static class member: shared across all class objects
+    // inline: so we can initialize it here.
+    static inline unsigned counter = 0;
 };
 
 #endif
