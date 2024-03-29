@@ -52,7 +52,7 @@ unsigned add_group(std::string group_name, std::unordered_map<unsigned, Group> &
 
 Expense add_expense_to_group(unsigned amount, unsigned payer_id, std::vector<unsigned> payee_ids, Group &group, std::unordered_map<unsigned, User> &user_list)
 {
-    Expense expense(group.expenses().size(), amount, payer_id, payee_ids);
+    Expense expense(amount, payer_id, payee_ids);
     group.add_expense(expense);
     group.update_member_balance(expense, user_list);
     return expense;
