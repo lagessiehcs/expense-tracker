@@ -32,7 +32,7 @@ void User::leave_group(unsigned group_id)
     _group_ids.erase(it);
 }
 
-void User::update_balance(unsigned group_id, unsigned balance)
+void User::update_balance(unsigned group_id, int balance)
 {
     _balance[group_id] += balance;
 }

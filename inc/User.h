@@ -30,7 +30,7 @@ public:
     std::vector<unsigned> group_ids() const;
     void join_group(unsigned group_id);
     void leave_group(unsigned group_id);
-    void update_balance(unsigned group_id, unsigned balance);
+    void update_balance(unsigned group_id, int balance);
     std::unordered_map<unsigned, int> balance();
     void show_balance(unsigned group_id);
     void print_user_groups(const std::unordered_map<unsigned, Group> &);
