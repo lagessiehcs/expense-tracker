@@ -89,25 +89,22 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
     while (not debtor_ids.empty())
     {
 
-        auto &creditor = user_umap[creditor_ids.back()];
-        auto &debtor = user_umap[debtor_ids.back()];
+        auto *current_creditor = &user_umap[creditor_ids.back()];
+        auto *current_debtor = &user_umap[debtor_ids.back()];
 
-        auto transaction_amount = -debtor.balance()[_id];
-        std::cout << debtor.name() << " owes " << creditor.name() << " " << transaction_amount * 0.01 << " Euro.\n";
+        auto transaction_amount = std::min(current_creditor->balance()[_id], -current_debtor->balance()[_id]);
+        std::cout << current_debtor->name() << " owes " << current_creditor->name() << " " << transaction_amount * 0.01 << " Euro.\n";
 
-        debtor.update_balance(_id, transaction_amount);
-        debtor_ids.pop_back();
+        current_debtor->update_balance(_id, transaction_amount);
+        if (current_debtor->balance()[_id] == 0)
+        {
+            debtor_ids.pop_back();
+        }
 
-        creditor.update_balance(_id, -transaction_amount);
-        if (creditor.balance()[_id] <= 0)
+        current_creditor->update_balance(_id, -transaction_amount);
+        if (current_creditor->balance()[_id] == 0)
         {
             creditor_ids.pop_back();
-            {
-                if (creditor.balance()[_id] < 0)
-                {
-                    debtor_ids.push_back(creditor.id());
-                }
-            }
         }
     }
 
