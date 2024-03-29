@@ -906,6 +906,9 @@ StateAutoGen::StateAutoGen()
 
 void StateAutoGen::_entry()
 {
+    save_state();
+    reset_state();
+
     // start clock
     start = std::chrono::system_clock::now();
 
@@ -951,6 +954,7 @@ StateName StateAutoGen::transitions()
     std::system("clear");
     if (_string_input == "0")
     {
+        load_state();
         return StateName::INIT;
     }
     else if (_string_input == "00")

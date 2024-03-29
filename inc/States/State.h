@@ -48,11 +48,20 @@ protected:
     static inline unsigned _group_id;
     static inline unsigned _expense_id;
 
+    // Variables to save counter state User, Group and Expense
+    static inline unsigned _user_counter = 0;
+    static inline unsigned _group_counter = 0;
+    static inline unsigned _expense_counter = 0;
+
     static inline std::unordered_map<unsigned, User> _user_umap;
     static inline std::unordered_map<unsigned, Group> _group_umap;
 
     static inline std::unordered_map<unsigned, User> _auto_gen_user_umap;
     static inline std::unordered_map<unsigned, Group> _auto_gen_group_umap;
+
+    void save_state();
+    void load_state();
+    void reset_state();
 
 public:
     State(StateName name);
