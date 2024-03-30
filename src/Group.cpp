@@ -69,7 +69,7 @@ void Group::update_member_balance(const Expense &expense, std::unordered_map<uns
 
 void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
 {
-    float transaction_amount{};
+    int transaction_amount{};
     std::unordered_map<std::string, int> debtor_balances;
     std::unordered_map<std::string, int> creditor_balances;
 
@@ -99,7 +99,7 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
         // find if there is a debtor that owes the same amount as the current creditor gets
         auto it = std::find_if(debtor_balances.begin(), debtor_balances.end(),
                                [&creditor_balance_it](std::pair<std::string, int> pair)
-                               { return creditor_balance_it->second == pair.second; });
+                               { return creditor_balance_it->second == -pair.second; });
 
         if (it != debtor_balances.end())
         {
@@ -115,7 +115,7 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
             // find if there is a creditor that gets the same amount as the current creditor owes
             it = std::find_if(creditor_balances.begin(), creditor_balances.end(),
                               [&debtor_balance_it](std::pair<std::string, int> pair)
-                              { return debtor_balance_it->second == pair.second; });
+                              { return debtor_balance_it->second == -pair.second; });
 
             if (it != creditor_balances.end())
             {
@@ -128,13 +128,15 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
             }
         }
 
-        if (creditor_balance_it->second > debtor_balance_it->second)
+        if (creditor_balance_it->second > -debtor_balance_it->second)
         {
+            creditor_balance_it->second += debtor_balance_it->second;
             transaction_amount = -debtor_balance_it->second;
             debtor_balances.erase(debtor_balance_it);
         }
-        else if (creditor_balance_it->second < debtor_balance_it->second)
+        else if (creditor_balance_it->second < -debtor_balance_it->second)
         {
+            debtor_balance_it->second += creditor_balance_it->second;
             transaction_amount = creditor_balance_it->second;
             creditor_balances.erase(creditor_balance_it);
         }
