@@ -37,4 +37,5 @@ Have fun settling expenses with your friends!
 
 ## Ideas
 * Save data so that users and groups survive after the programm is terminated
+* Only show unsettled expenses (plus a history of all expenses with dates and time)
 * Apply visitor for tasks such as adding user to group.
