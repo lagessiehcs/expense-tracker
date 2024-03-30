@@ -26,6 +26,7 @@ public:
     std::vector<unsigned> group_ids() const;
     void join_group(unsigned group_id);
     void leave_group(unsigned group_id);
+    void set_balance(unsigned group_id, int balance);
     void update_balance(unsigned group_id, int balance);
     std::unordered_map<unsigned, int> balance();
     void show_balance(unsigned group_id);
