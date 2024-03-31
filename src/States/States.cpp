@@ -641,7 +641,7 @@ void StateCheckExpense::_entry()
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
     std::cout << CHECK_EXPENSE_TEXT;
-    print_expenses(_group_id, _user_umap, _group_umap);
+    _group_umap[_group_id].print_expenses(_user_umap, _group_umap);
 
     for (const auto &expense : expenses)
     {

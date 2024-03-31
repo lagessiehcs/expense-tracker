@@ -61,6 +61,79 @@ void Group::update_member_balance(const Expense &expense, std::unordered_map<uns
     }
 }
 
+void Group::print_expenses(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap)
+{
+    const auto &expenses = group_umap.find(_id)->second.expenses(); // Find() instead of [], because group_umap is const, but operator[] not
+    if (expenses.empty())
+    {
+        std::cout << "| No expenses yet!                                 |\n";
+        std::cout << "|                                                  |\n";
+    }
+    else
+    {
+        for (const auto &expense : expenses)
+        {
+            auto number = std::to_string(expense.id() + 1);
+            std::string string = " (" + number + ") " + user_umap.find(expense.payer_id())->second.name() + " paid " + std::to_string((int)(expense.amount() * 0.01)) + " Euro for: ";
+            std::string spaces(50 - string.length(), ' ');
+            std::cout << "|" << string << spaces << "|\n";
+
+            string.assign(4 + number.length(), ' ');
+
+            for (auto id : expense.payee_ids())
+            {
+                auto payee_name = user_umap.find(id)->second.name();
+                if (string.length() + payee_name.length() + 2 < 50) // 2 for ", " or "."
+                {
+                    string += payee_name;
+                }
+                else
+                {
+                    spaces.assign(50 - string.length(), ' ');
+                    std::cout << "|" << string << spaces << "|\n";
+                    string.assign(4 + number.length(), ' ');
+                    string += payee_name;
+                }
+
+                if (id != expense.payee_ids().back())
+                {
+                    string += ", ";
+                }
+                else
+                {
+                    string += ".";
+                }
+            }
+            spaces.assign(50 - string.length(), ' ');
+            std::cout << "|" << string << spaces << "|\n";
+            std::cout << "|                                                  |\n";
+        }
+    }
+    if (!expenses.empty())
+    {
+        std::cout << "| (Input the number before each expense to edit)   |\n";
+        std::cout << "|                                                  |\n";
+    }
+
+    std::cout << "| (0) Back                                         |\n";
+    std::cout << "*--------------------------------------------------*\n";
+}
+
+void Group::print_group_members(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap) const
+{
+    const auto &member_ids = group_umap.find(_id)->second.member_ids(); // Find() instead of [], because group_umap is const, but operator[] !
+
+    std::cout << "| Group member(s):                                 |\n";
+    for (auto member_id : member_ids)
+    {
+
+        std::string string = " (" + std::to_string(member_id + 1) + ") " + user_umap.find(member_id)->second.name();
+        std::string spaces(50 - string.length(), ' ');
+        std::cout << "|" << string << spaces << "|\n";
+    }
+    std::cout << "|                                                  |\n";
+}
+
 void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
 {
     int transaction_amount{};
@@ -145,19 +218,4 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
         }
     }
     std::cout << "The group is now settled!\n";
-}
-
-void Group::print_group_members(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap) const
-{
-    const auto &member_ids = group_umap.find(_id)->second.member_ids(); // Find() instead of [], because group_umap is const, but operator[] !
-
-    std::cout << "| Group member(s):                                 |\n";
-    for (auto member_id : member_ids)
-    {
-
-        std::string string = " (" + std::to_string(member_id + 1) + ") " + user_umap.find(member_id)->second.name();
-        std::string spaces(50 - string.length(), ' ');
-        std::cout << "|" << string << spaces << "|\n";
-    }
-    std::cout << "|                                                  |\n";
 }

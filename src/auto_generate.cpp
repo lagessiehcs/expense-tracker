@@ -196,7 +196,7 @@ void auto_run(std::unordered_map<unsigned, User> &user_umap, std::unordered_map<
         std::cout << std::endl;
         // Print all group expenses
         std::cout << "Groups expenses:" << std::endl;
-        print_expenses(id, user_umap, group_umap);
+        group.print_expenses(user_umap, group_umap);
         std::cout << std::endl;
         // Create and print all group settlements
         std::cout << "Groups settlements:" << std::endl;
