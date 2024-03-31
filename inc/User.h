@@ -35,7 +35,7 @@ public:
 
     // static class member: shared across all class objects
     // inline: so we can initialize it here.
-    static inline unsigned counter = 0;
+    static inline unsigned counter{0};
 };
 
 #endif
