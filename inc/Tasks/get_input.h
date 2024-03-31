@@ -2,7 +2,7 @@
 #define GET_INPUT_H
 
 #include <iostream>
-#include "Text.h"
+#include "../Text.h"
 
 void ignoreLine();
 

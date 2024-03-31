@@ -1,7 +1,7 @@
 #include "State.h"
 #include "../Text.h"
-#include "../get_input.h"
-#include "../auto_generate.h"
+#include "../Tasks/get_input.h"
+#include "../Tasks/auto_generate.h"
 #include <chrono>
 
 //-----INIT----------------------------------------------

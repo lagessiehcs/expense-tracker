@@ -7,8 +7,9 @@
 #include <sstream>
 #include <vector>
 #include <string>
-#include "User.h"
-#include "tasks.h"
+#include "../User.h"
+#include "manage_user_group.h"
+#include "print.h"
 
 void import_data(std::ifstream &, std::unordered_map<unsigned, User> &, std::unordered_map<unsigned, Group> &);
 void auto_run(std::unordered_map<unsigned, User> &user_list, std::unordered_map<unsigned, Group> &group_list);

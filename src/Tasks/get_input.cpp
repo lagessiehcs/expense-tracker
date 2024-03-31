@@ -1,4 +1,4 @@
-#include "../inc/get_input.h"
+#include "../../inc/Tasks/get_input.h"
 #include <limits> // for std::numeric_limits
 
 void ignoreLine()
@@ -31,7 +31,7 @@ unsigned get_unsigned(std::string string)
         unsigned x{};
         std::cout << string;
         std::cin >> x;
-        if (! extraction_success())
+        if (!extraction_success())
         {
             std::cout << ERROR_TEXT;
             continue;
@@ -49,7 +49,7 @@ float get_float(std::string string)
         float x{};
         std::cout << string;
         std::cin >> x;
-        if (! extraction_success())
+        if (!extraction_success())
         {
             std::cout << ERROR_TEXT;
             continue;
@@ -67,7 +67,7 @@ std::string get_string(std::string string)
         std::string x{};
         std::cout << string;
         std::cin >> x;
-        if (! extraction_success())
+        if (!extraction_success())
         {
             std::cout << ERROR_TEXT;
             continue;

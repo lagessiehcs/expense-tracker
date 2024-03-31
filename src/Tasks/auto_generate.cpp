@@ -1,4 +1,4 @@
-#include "../inc/auto_generate.h"
+#include "../../inc/Tasks/auto_generate.h"
 
 void trim(std::string &string)
 {

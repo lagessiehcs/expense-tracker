@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
 project(ExpenseTracker VERSION 0.1.0 LANGUAGES CXX)
-add_executable(ExpenseTracker main.cpp auto_generate.cpp tasks.cpp Expense.cpp Group.cpp User.cpp get_input.cpp States/State.cpp States/States.cpp) 
+add_executable(ExpenseTracker main.cpp Expense.cpp Group.cpp User.cpp Tasks/manage_user_group.cpp Tasks/print.cpp Tasks/auto_generate.cpp Tasks/get_input.cpp States/State.cpp States/States.cpp) 
 target_compile_features(ExpenseTracker PUBLIC cxx_std_17)
 set (CMAKE_CXX_FLAGS "-O3")
