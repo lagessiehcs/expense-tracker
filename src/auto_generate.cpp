@@ -1,24 +1,12 @@
 #include "../inc/auto_generate.h"
 #include "../inc/printers.h"
 
-/*
-C++20:
-
-template <typename... Chars>
-concept IsChar = requires(Chars... args) {
-    typeid(args...) == typeid(char);
-};
-template <IsChar... Chars>
-void remove_chars(std::string &string, Chars... args)
-*/
-
-template <typename... Chars>
-void remove_chars(std::string &string, Chars... args)
+void trim(std::string &string)
 {
     // Remove quotes from string using std::remove_if and erase idiom
     string.erase(std::remove_if(string.begin(), string.end(),
-                                [&args...](char c)
-                                { return ((c == args) || ...); }),
+                                [](char c)
+                                { return ((c == '\r') || (c == '\n') || (c == '\"')); }),
                  string.end());
 }
 
@@ -40,7 +28,7 @@ void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_u
             continue;
         }
 
-        remove_chars(line, '\r', '\n');
+        trim(line);
 
         // add user with the name stored in line
         add_user(line, user_umap);
@@ -67,7 +55,7 @@ void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_u
         std::getline(iss, group_name, ',');
         std::getline(iss, members);
 
-        remove_chars(members, '\"', '\r', '\n');
+        trim(members);
 
         // Split members into vector
         std::vector<std::string> membersVector;
@@ -133,12 +121,12 @@ void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_u
 
         std::getline(iss, amountStr);
 
-        remove_chars(amountStr, '\r', '\n');
+        trim(amountStr);
 
         // Convert amount to float
         float amount = std::stof(amountStr);
 
-        remove_chars(amountStr, '\"');
+        trim(amountStr);
 
         // Split payee into vector
         std::vector<std::string> payeeVector;
