@@ -1,5 +1,4 @@
 #include "../inc/auto_generate.h"
-#include "../inc/printers.h"
 
 void trim(std::string &string)
 {
