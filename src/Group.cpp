@@ -82,7 +82,7 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
         }
     }
 
-    while (not debtor_balances.empty())
+    while (! debtor_balances.empty())
     {
         auto creditor_balance_it = creditor_balances.begin(); // iteration to the first balance
         auto debtor_balance_it = debtor_balances.begin();     // iteration to the first balance
@@ -149,7 +149,7 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
 
 void Group::print_group_members(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap) const
 {
-    const auto &member_ids = group_umap.find(_id)->second.member_ids(); // Find() instead of [], because group_umap is const, but operator[] not
+    const auto &member_ids = group_umap.find(_id)->second.member_ids(); // Find() instead of [], because group_umap is const, but operator[] !
 
     std::cout << "| Group member(s):                                 |\n";
     for (auto member_id : member_ids)

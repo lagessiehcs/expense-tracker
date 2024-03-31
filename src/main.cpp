@@ -69,7 +69,7 @@ int main()
     while (true)
     {
         StateName nextState = currentState->run();
-        if (currentState->name() == s_exit.name() and nextState == s_exit.name())
+        if (currentState->name() == s_exit.name() && nextState == s_exit.name())
         {
             return 0;
         }

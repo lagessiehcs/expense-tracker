@@ -5,7 +5,7 @@ void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_u
 {
     std::string line;
     // Read the file line by line until reaching the "Groups" line
-    while (std::getline(file, line) and line.find("Groups") == std::string::npos)
+    while (std::getline(file, line) && line.find("Groups") == std::string::npos)
     {
         // Skip the "Users" line
         if (line.find("Users") != std::string::npos)
@@ -34,7 +34,7 @@ void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_u
     }
 
     // Read the lines under "Groups" until reaching the "Expenses" line
-    while (std::getline(file, line) and line.find("Expenses") == std::string::npos)
+    while (std::getline(file, line) && line.find("Expenses") == std::string::npos)
     {
         // Skip the "Groups" line
         if (line.find("Groups") != std::string::npos)

@@ -95,7 +95,7 @@ void print_expenses(unsigned group_id, const std::unordered_map<unsigned, User> 
             std::cout << "|                                                  |\n";
         }
     }
-    if (not expenses.empty())
+    if (!expenses.empty())
     {
         std::cout << "| (Input the number before each expense to edit)   |\n";
         std::cout << "|                                                  |\n";
