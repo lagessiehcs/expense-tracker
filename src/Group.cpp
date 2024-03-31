@@ -48,22 +48,16 @@ void Group::add_expense(const Expense &expense)
 
 void Group::update_member_balance(const Expense &expense, std::unordered_map<unsigned, User> &user_umap)
 {
+    auto payee_ids = expense.payee_ids();
+    auto payer_id = expense.payer_id();
+    auto expense_amount = expense.amount();
 
-    auto payee_number = expense.payee_ids().size();
-    auto individual_amount = expense.amount() / payee_number;
-    for (auto member_id : _member_ids)
+    auto individual_amount = expense_amount / payee_ids.size();
+
+    user_umap[payer_id].update_balance(_id, expense_amount);
+    for (auto payee_id : payee_ids)
     {
-        if (member_id == expense.payer_id())
-        {
-            user_umap[member_id].update_balance(_id, individual_amount * payee_number);
-        }
-        for (auto payee_id : expense.payee_ids())
-        {
-            if (member_id == payee_id)
-            {
-                user_umap[member_id].update_balance(_id, -individual_amount);
-            }
-        }
+        user_umap[payee_id].update_balance(_id, -individual_amount);
     }
 }
 
@@ -88,7 +82,7 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
         }
     }
 
-    while (!debtor_balances.empty())
+    while (not debtor_balances.empty())
     {
         auto creditor_balance_it = creditor_balances.begin(); // iteration to the first balance
         auto debtor_balance_it = debtor_balances.begin();     // iteration to the first balance
