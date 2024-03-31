@@ -82,10 +82,10 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
         }
     }
 
-    while (! debtor_balances.empty())
+    while (!debtor_balances.empty())
     {
-        auto creditor_balance_it = creditor_balances.begin(); // iteration to the first balance
-        auto debtor_balance_it = debtor_balances.begin();     // iteration to the first balance
+        auto creditor_balance_it = creditor_balances.begin(); // iterator to the first balance
+        auto debtor_balance_it = debtor_balances.begin();     // iterator to the first balance
 
         auto creditor_name = creditor_balance_it->first;
         auto debtor_name = debtor_balance_it->first;
