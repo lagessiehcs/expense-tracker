@@ -49,7 +49,7 @@ StateName StateInit::transitions()
     }
     else
     {
-        std::cout << "Something very wrong has just happened, we should not been able to land here.";
+        std::cout << "Something very wrong has just happened, we should not have been able to land here.";
         return StateName::EXIT;
     }
 }
@@ -105,7 +105,7 @@ StateName StateStart::transitions()
     }
     else
     {
-        std::cout << "Something very wrong has just happened, we should not been able to land here.";
+        std::cout << "Something very wrong has just happened, we should not have been able to land here.";
         return StateName::EXIT;
     }
 }
@@ -241,7 +241,7 @@ StateName StateUserHome::transitions()
     }
     else
     {
-        std::cout << "Something very wrong has just happened, we should not been able to land here.";
+        std::cout << "Something very wrong has just happened, we should not have been able to land here.";
         return StateName::EXIT;
     }
 }
@@ -461,7 +461,7 @@ StateName StateGroupHome::transitions()
     }
     else
     {
-        std::cout << "Something very wrong has just happened, we should not been able to land here.";
+        std::cout << "Something very wrong has just happened, we should not have been able to land here.";
         return StateName::EXIT;
     }
 }
@@ -963,7 +963,7 @@ StateName StateAutoGen::transitions()
     }
     else
     {
-        std::cout << "Something very wrong has just happened, we should not been able to land here.";
+        std::cout << "Something very wrong has just happened, we should not have been able to land here.";
         return StateName::EXIT;
     }
 }
