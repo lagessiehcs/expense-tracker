@@ -13,7 +13,7 @@ User add_user(std::string name, std::unordered_map<unsigned, User> &user_list)
 
     // User not found, create a new one
     User new_user(name);
-    user_list.insert(std::make_pair(new_user.id(), new_user));
+    user_list[new_user.id()] = new_user;
     return new_user;
 }
 
@@ -45,7 +45,7 @@ unsigned add_group(std::string group_name, std::unordered_map<unsigned, Group> &
         }
     }
     Group new_group(group_name);
-    group_umap.insert(std::make_pair(new_group.id(), new_group));
+    group_umap[new_group.id()] = new_group;
 
     return new_group.id();
 }
