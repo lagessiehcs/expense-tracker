@@ -1,6 +1,27 @@
 #include "../inc/auto_generate.h"
 #include "../inc/printers.h"
 
+/*
+C++20:
+
+template <typename... Chars>
+concept IsChar = requires(Chars... args) {
+    typeid(args...) == typeid(char);
+};
+template <IsChar... Chars>
+void remove_chars(std::string &string, Chars... args)
+*/
+
+template <typename... Chars>
+void remove_chars(std::string &string, Chars... args)
+{
+    // Remove quotes from string using std::remove_if and erase idiom
+    string.erase(std::remove_if(string.begin(), string.end(),
+                                [&args...](char c)
+                                { return ((c == args) || ...); }),
+                 string.end());
+}
+
 void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_umap, std::unordered_map<unsigned, Group> &group_umap)
 {
     std::string line;
@@ -19,15 +40,7 @@ void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_u
             continue;
         }
 
-        line.erase(std::remove_if(line.begin(), line.end(),
-                                  [](char c)
-                                  { return c == '\r'; }),
-                   line.end());
-
-        line.erase(std::remove_if(line.begin(), line.end(),
-                                  [](char c)
-                                  { return c == '\n'; }),
-                   line.end());
+        remove_chars(line, '\r', '\n');
 
         // add user with the name stored in line
         add_user(line, user_umap);
@@ -54,21 +67,7 @@ void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_u
         std::getline(iss, group_name, ',');
         std::getline(iss, members);
 
-        // Remove quotes from members using std::remove_if and erase idiom
-        members.erase(std::remove_if(members.begin(), members.end(),
-                                     [](char c)
-                                     { return c == '\"'; }),
-                      members.end());
-
-        members.erase(std::remove_if(members.begin(), members.end(),
-                                     [](char c)
-                                     { return c == '\r'; }),
-                      members.end());
-
-        members.erase(std::remove_if(members.begin(), members.end(),
-                                     [](char c)
-                                     { return c == '\n'; }),
-                      members.end());
+        remove_chars(members, '\"', '\r', '\n');
 
         // Split members into vector
         std::vector<std::string> membersVector;
@@ -86,7 +85,7 @@ void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_u
             {
                 if (user.second.name().compare(member) == 0)
                 {
-                    add_user_to_group(user.second, group_umap.find(group_id)->second);
+                    add_user_to_group(user.second, group_umap[group_id]);
                     break;
                 }
             }
@@ -134,24 +133,12 @@ void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_u
 
         std::getline(iss, amountStr);
 
-        amountStr.erase(std::remove_if(amountStr.begin(), amountStr.end(),
-                                       [](char c)
-                                       { return c == '\r'; }),
-                        amountStr.end());
-
-        amountStr.erase(std::remove_if(amountStr.begin(), amountStr.end(),
-                                       [](char c)
-                                       { return c == '\n'; }),
-                        amountStr.end());
+        remove_chars(amountStr, '\r', '\n');
 
         // Convert amount to float
         float amount = std::stof(amountStr);
 
-        // Remove quotes from payee using std::remove_if and erase idiom
-        payee_names.erase(std::remove_if(payee_names.begin(), payee_names.end(),
-                                         [](char c)
-                                         { return c == '\"'; }),
-                          payee_names.end());
+        remove_chars(amountStr, '\"');
 
         // Split payee into vector
         std::vector<std::string> payeeVector;
