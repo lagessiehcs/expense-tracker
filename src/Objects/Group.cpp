@@ -42,20 +42,17 @@ void Group::remove_member(unsigned user_id)
     _member_ids.erase(it);
 }
 
-void Group::add_expense(const Expense &expense)
+void Group::add_expense(unsigned amount, unsigned payer_id, std::vector<unsigned> &payee_ids)
 {
+    Expense expense(amount, payer_id, payee_ids);
     _expenses.push_back(expense);
 }
 
-void Group::update_member_balance(const Expense &expense, std::unordered_map<unsigned, User> &user_umap)
+void Group::update_member_balance(unsigned amount, unsigned payer_id, std::vector<unsigned> &payee_ids, std::unordered_map<unsigned, User> &user_umap)
 {
-    auto payee_ids = expense.payee_ids();
-    auto payer_id = expense.payer_id();
-    auto expense_amount = expense.amount();
+    auto individual_amount = amount / payee_ids.size();
 
-    auto individual_amount = expense_amount / payee_ids.size();
-
-    user_umap[payer_id].update_balance(_id, expense_amount);
+    user_umap[payer_id].update_balance(_id, amount);
     for (auto payee_id : payee_ids)
     {
         user_umap[payee_id].update_balance(_id, -individual_amount);

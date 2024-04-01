@@ -1,6 +1,5 @@
 #include "../../inc/Tasks/manage_user_group.h"
 
-
 User add_user(std::string name, std::unordered_map<unsigned, User> &user_list)
 {
     for (const auto &user : user_list)
@@ -51,10 +50,8 @@ unsigned add_group(std::string group_name, std::unordered_map<unsigned, Group> &
     return new_group.id();
 }
 
-Expense add_expense_to_group(unsigned amount, unsigned payer_id, std::vector<unsigned> payee_ids, Group &group, std::unordered_map<unsigned, User> &user_list)
+void add_expense_to_group(unsigned amount, unsigned payer_id, std::vector<unsigned> payee_ids, Group &group, std::unordered_map<unsigned, User> &user_list)
 {
-    Expense expense(amount, payer_id, payee_ids);
-    group.add_expense(expense);
-    group.update_member_balance(expense, user_list);
-    return expense;
+    group.add_expense(amount, payer_id, payee_ids);
+    group.update_member_balance(amount, payer_id, payee_ids, user_list);
 }

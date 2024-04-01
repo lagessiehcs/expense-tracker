@@ -27,11 +27,11 @@ public:
     void edit_expenses(unsigned, unsigned);
     void add_member(const unsigned user_id);
     void remove_member(unsigned user_id);
-    void add_expense(const Expense &expense);
+    void add_expense(unsigned amount, unsigned payer_id, std::vector<unsigned> &payee_ids);
+    void update_member_balance(unsigned amount, unsigned payer_id, std::vector<unsigned> &payee_ids, std::unordered_map<unsigned, User> &user_umap);
     void print_expenses(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap);
-    void update_member_balance(const Expense &expense, std::unordered_map<unsigned, User> &user_umap);
-    void create_settlement(std::unordered_map<unsigned, User> &user_umap);
     void print_group_members(const std::unordered_map<unsigned, User> &user_umap, const std::unordered_map<unsigned, Group> &group_umap) const;
+    void create_settlement(std::unordered_map<unsigned, User> &user_umap);
 
     // static class member: shared across all class objects
     // inline: so we can initialize it here.
