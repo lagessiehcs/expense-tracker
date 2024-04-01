@@ -1,4 +1,4 @@
-#include "../inc/Expense.h"
+#include "../../inc/Objects/Expense.h"
 
 Expense::Expense(unsigned amount, unsigned payer_id, std::vector<unsigned> payee_ids)
     : _id(counter++), _amount(amount), _payer_id(payer_id), _payee_ids(payee_ids){};

@@ -1,4 +1,4 @@
-#include "../inc/Group.h"
+#include "../../inc/Objects/Group.h"
 
 Group::Group(std::string name)
     : _name(name), _id(counter++)

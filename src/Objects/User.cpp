@@ -1,4 +1,4 @@
-#include "../inc/User.h"
+#include "../../inc/Objects/User.h"
 #include <cmath>
 
 User::User(std::string name)

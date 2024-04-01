@@ -7,7 +7,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
-#include "../User.h"
+#include "../Objects/User.h"
 #include "manage_user_group.h"
 #include "print.h"
 

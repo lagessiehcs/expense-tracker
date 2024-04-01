@@ -2,8 +2,8 @@
 #define MANAGE_USER_GROUP_H
 
 #include <unordered_map>
-#include "../User.h"
-#include "../Group.h"
+#include "../Objects/User.h"
+#include "../Objects/Group.h"
 #include <algorithm>
 
 User add_user(std::string, std::unordered_map<unsigned, User> &);
