@@ -44,7 +44,7 @@ void Group::remove_member(unsigned user_id)
 
 void Group::add_expense(unsigned amount, unsigned payer_id, std::vector<unsigned> &payee_ids)
 {
-    Expense expense(amount, payer_id, payee_ids);
+    Expense expense(_expense_counter++, amount, payer_id, payee_ids);
     _expenses.push_back(expense);
 }
 

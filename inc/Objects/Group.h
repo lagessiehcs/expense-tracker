@@ -17,6 +17,7 @@ private:
     std::string _name;
     std::vector<unsigned> _member_ids;
     std::vector<Expense> _expenses;
+    unsigned _expense_counter{0};
 
 public:
     Group(std::string = "");

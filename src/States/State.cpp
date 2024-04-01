@@ -32,19 +32,16 @@ void State::save_state()
 {
     _user_counter = User::counter;
     _group_counter = Group::counter;
-    _expense_counter = Expense::counter;
 }
 
 void State::load_state()
 {
     User::counter = _user_counter;
     Group::counter = _group_counter;
-    Expense::counter = _expense_counter;
 }
 
 void State::reset_state()
 {
     User::counter = 0;
     Group::counter = 0;
-    Expense::counter = 0;
 }
