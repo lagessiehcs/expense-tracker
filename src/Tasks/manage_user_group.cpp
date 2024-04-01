@@ -12,7 +12,8 @@ User add_user(std::string name, std::unordered_map<unsigned, User> &user_list)
 
     // User not found, create a new one
     User new_user(name);
-    user_list[new_user.id()] = new_user;
+    auto id = new_user.id();
+    user_list.emplace(std::make_pair(new_user.id(), new_user)); // Avoid using operator[] used, to avoid calling User constructor again
     return new_user;
 }
 
@@ -45,7 +46,7 @@ unsigned add_group(std::string group_name, std::unordered_map<unsigned, Group> &
         }
     }
     Group new_group(group_name);
-    group_umap[new_group.id()] = new_group;
+    group_umap.emplace(std::make_pair(new_group.id(), new_group)); // Avoid using operator[] used, to avoid calling Group constructor again
 
     return new_group.id();
 }
