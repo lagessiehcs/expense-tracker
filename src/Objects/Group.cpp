@@ -1,4 +1,5 @@
 #include "../../inc/Objects/Group.h"
+#include <execution>
 
 Group::Group(std::string name)
     : _name(name), _id(counter++)
@@ -164,7 +165,7 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
         auto debtor_name = debtor_balance_it->first;
 
         // find if there is a debtor that owes the same amount as the current creditor gets
-        auto it = std::find_if(debtor_balances.begin(), debtor_balances.end(),
+        auto it = std::find_if(std::execution::par_unseq, debtor_balances.begin(), debtor_balances.end(),
                                [&creditor_balance_it](std::pair<std::string, int> pair)
                                { return creditor_balance_it->second == -pair.second; });
 
@@ -180,7 +181,7 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
         else
         {
             // find if there is a creditor that gets the same amount as the current creditor owes
-            it = std::find_if(creditor_balances.begin(), creditor_balances.end(),
+            it = std::find_if(std::execution::par_unseq, creditor_balances.begin(), creditor_balances.end(),
                               [&debtor_balance_it](std::pair<std::string, int> pair)
                               { return debtor_balance_it->second == -pair.second; });
 

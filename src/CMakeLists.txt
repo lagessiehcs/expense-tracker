@@ -10,4 +10,4 @@ add_subdirectory(States)
 add_subdirectory(Tasks)
 
 target_compile_features(ExpenseTracker PUBLIC cxx_std_17)
-set (CMAKE_CXX_FLAGS "-O3")
+set (CMAKE_CXX_FLAGS "-Ofast")
