@@ -36,7 +36,7 @@ class State
 {
 
 protected:
-    StateName _name;
+    const StateName _name;
 
     virtual void _entry() = 0;
 
