@@ -210,10 +210,7 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
     }
     for (auto member_id : _member_ids)
     {
-        if (user_umap[member_id].balance()[_id] != 0)
-        {
-            user_umap[member_id].set_balance(_id, 0);
-        }
+        user_umap[member_id].set_balance(_id, 0);
     }
     std::cout << "The group is now settled!\n";
 }
