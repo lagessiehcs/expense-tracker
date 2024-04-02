@@ -13,7 +13,7 @@ class User;
 class Group
 {
 private:
-    unsigned _id;
+    const unsigned _id;
     std::string _name;
     std::vector<unsigned> _member_ids;
     std::vector<Expense> _expenses;

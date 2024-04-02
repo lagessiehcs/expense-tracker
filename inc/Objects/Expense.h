@@ -6,7 +6,7 @@
 class Expense
 {
 private:
-    unsigned _id;
+    const unsigned _id;
     unsigned _amount;
     unsigned _payer_id;
     std::vector<unsigned> _payee_ids;

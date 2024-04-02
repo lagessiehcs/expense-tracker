@@ -15,7 +15,7 @@ class User
 
 private:
     std::string _name;
-    unsigned _id;
+    const unsigned _id;
     std::unordered_map<unsigned, int> _balance;
     std::vector<unsigned> _group_ids;
 
