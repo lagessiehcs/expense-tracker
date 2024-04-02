@@ -35,6 +35,14 @@ Additional info for user mode: The program is built with different pages (or lev
 
 Have fun settling expenses with your friends!
 
+## Profiling (only works on Linux)
+
+After compiling and running the code in the 2. mode, in your terminal:
+
+```shell
+gprof ./ExpenseTracker
+```
+
 ## Ideas
 * Save data so that users and groups survive after the programm is terminated
 * Only show unsettled expenses (plus a history of all expenses with dates and time)
