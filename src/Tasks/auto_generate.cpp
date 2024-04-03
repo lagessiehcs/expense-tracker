@@ -171,34 +171,42 @@ void import_data(std::ifstream &file, std::unordered_map<unsigned, User> &user_u
 void auto_run(std::unordered_map<unsigned, User> &user_umap, std::unordered_map<unsigned, Group> &group_umap)
 {
     // Print all users
-    std::cout << "_________________________\n";
-    std::cout << "Users list:" << std::endl;
-    std::cout << "_________________________\n";
+    std::cout << ".--------------------------------------------------.\n";
+    std::cout << "|                    USER LIST                     |\n";
+    std::cout << "|--------------------------------------------------|\n";
     print_all_users(user_umap);
 
     // Print all Groups
-    std::cout << "_________________________\n";
-    std::cout << "Groups list:" << std::endl;
-    std::cout << "_________________________\n";
+    std::cout << ".--------------------------------------------------.\n";
+    std::cout << "|                   GROUP LIST                     |\n";
+    std::cout << "|--------------------------------------------------|\n";
     print_all_groups(group_umap);
 
     // Print all group members
     std::cout << std::endl;
     for (auto &[id, group] : group_umap)
     {
-        std::cout << "_________________________\n";
-        std::cout << group.name() << "'s information" << std::endl;
-        std::cout << "_________________________\n";
-        std::cout << std::endl;
+        std::string string = " " + group.name() + "'s information";
+        std::string spaces(50 - string.length(), ' ');
+        std::cout << ".--------------------------------------------------.\n";
+        std::cout << "|" << string << spaces << "|\n";
+        std::cout << "|--------------------------------------------------|\n";
+
         // Print all group members
         group.print_group_members(user_umap, group_umap);
-        std::cout << std::endl;
+
         // Print all group expenses
-        std::cout << "Groups expenses:" << std::endl;
+        std::cout << "|                                                  |\n";
+        std::cout << "| Groups expenses:                                 |\n";
+        std::cout << "|                                                  |\n";
+
         group.print_expenses(user_umap, group_umap);
-        std::cout << std::endl;
+
         // Create and print all group settlements
-        std::cout << "Groups settlements:" << std::endl;
+        std::cout << "|                                                  |\n";
+        std::cout << "| Groups settlements:                              |\n";
+        std::cout << "|                                                  |\n";
+
         group.create_settlement(user_umap);
     }
 };
