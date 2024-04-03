@@ -10,7 +10,7 @@ add_subdirectory(States)
 add_subdirectory(Tasks)
 
 target_compile_features(ExpenseTracker PUBLIC cxx_std_17)
-set (CMAKE_CXX_FLAGS "-Ofast")
+set (CMAKE_CXX_FLAGS "-Ofast -finline-functions")
 
 # Add the -pg flag for profiling, only works on Linux
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
