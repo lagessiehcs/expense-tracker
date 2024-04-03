@@ -175,7 +175,7 @@ void StateNewUser::_entry()
     std::cout << NEW_USER_TEXT;
 }
 
-void StateNewUser::_during() // TODO: Add option cancel in case users change their mind
+void StateNewUser::_during()
 {
     _string_input = get_string("Input: ");
     if (_string_input == "00")
@@ -266,10 +266,14 @@ void StateNewGroup::_entry()
     std::cout << NEW_GROUP_TEXT;
 }
 
-void StateNewGroup::_during() // TODO: Add option cancel in case users change their mind.
+void StateNewGroup::_during()
 {
     _string_input = get_string("Input: ");
     std::cout << std::endl;
+    if (_string_input == "00")
+    {
+        return;
+    }
     _group_id = add_group(_string_input, _group_umap);
     add_user_to_group(_user_umap[_user_id], _group_umap[_group_id]);
 }
@@ -277,6 +281,10 @@ void StateNewGroup::_during() // TODO: Add option cancel in case users change th
 StateName StateNewGroup::transitions()
 {
     std::system("clear");
+    if (_string_input == "00")
+    {
+        return StateName::USER_HOME;
+    }
     return StateName::GROUP_HOME;
 }
 
@@ -706,12 +714,10 @@ void StateSettlement::_entry()
 {
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "-------------------------------------------------\n"; // TODO: update text to be in a box
+    std::cout << SETTLEMENT_TEXT;
     // TODO: First show who owes who and ask if group members want to settle, donnot settle if user doesnt choose to do so
     _group_umap[_group_id].create_settlement(_user_umap);
     std::cout << std::endl;
-    std::cout << "(0) Back\n";
-    std::cout << "-------------------------------------------------\n";
 }
 
 void StateSettlement::_during()

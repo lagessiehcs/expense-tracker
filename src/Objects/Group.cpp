@@ -1,5 +1,6 @@
 #include "../../inc/Objects/Group.h"
 #include <execution>
+#include <cstdio>
 
 Group::Group(std::string name)
     : _name(name), _id(counter++)
@@ -161,6 +162,11 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
         auto creditor_name = creditor_balance_it->first;
         auto debtor_name = debtor_balance_it->first;
 
+        std::string string;
+        std::string spaces;
+
+        char buffer[50];
+
         // find if there is a debtor that owes the same amount as the current creditor gets
         auto it = std::find_if(std::execution::par_unseq, debtor_balances.begin(), debtor_balances.end(),
                                [&creditor_balance_it](std::pair<std::string, int> pair)
@@ -169,8 +175,11 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
         if (it != debtor_balances.end())
         {
             transaction_amount = creditor_balance_it->second;
+            std::sprintf(buffer, "%.2f", transaction_amount * 0.01);
             debtor_name = it->first;
-            std::cout << debtor_name << " owes " << creditor_name << " " << transaction_amount * 0.01 << " Euro.\n";
+            string.assign(" " + debtor_name + " owes " + creditor_name + " " + buffer + " Euro.");
+            spaces.assign(50 - string.length(), ' ');
+            std::cout << "|" << string << spaces << "|\n";
             debtor_balances.erase(it);
             creditor_balances.erase(creditor_balance_it);
             continue;
@@ -185,8 +194,11 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
             if (it != creditor_balances.end())
             {
                 transaction_amount = it->second;
+                std::sprintf(buffer, "%.2f", transaction_amount * 0.01);
                 creditor_name = it->first;
-                std::cout << debtor_name << " owes " << creditor_name << " " << transaction_amount * 0.01 << " Euro.\n";
+                string.assign(" " + debtor_name + " owes " + creditor_name + " " + buffer + " Euro.");
+                spaces.assign(50 - string.length(), ' ');
+                std::cout << "|" << string << spaces << "|\n";
                 creditor_balances.erase(it);
                 debtor_balances.erase(debtor_balance_it);
                 continue;
@@ -197,20 +209,28 @@ void Group::create_settlement(std::unordered_map<unsigned, User> &user_umap)
         {
             creditor_balance_it->second += debtor_balance_it->second;
             transaction_amount = -debtor_balance_it->second;
+            std::sprintf(buffer, "%.2f", transaction_amount * 0.01);
+            string.assign(" " + debtor_name + " owes " + creditor_name + " " + buffer + " Euro.");
             debtor_balances.erase(debtor_balance_it);
         }
         else if (creditor_balance_it->second < -debtor_balance_it->second)
         {
             debtor_balance_it->second += creditor_balance_it->second;
             transaction_amount = creditor_balance_it->second;
+            std::sprintf(buffer, "%.2f", transaction_amount * 0.01);
+            string.assign(" " + debtor_name + " owes " + creditor_name + " " + buffer + " Euro.");
             creditor_balances.erase(creditor_balance_it);
         }
-
-        std::cout << debtor_name << " owes " << creditor_name << " " << transaction_amount * 0.01 << " Euro.\n";
+        spaces.assign(50 - string.length(), ' ');
+        std::cout << "|" << string << spaces << "|\n";
     }
     for (auto member_id : _member_ids)
     {
         user_umap[member_id].set_balance(_id, 0);
     }
-    std::cout << "The group is now settled!\n";
+    std::cout << "|                                                  |\n";
+    std::cout << "| The group is now settled!                        |\n";
+    std::cout << "|                                                  |\n";
+    std::cout << "| (0) Back                                         |\n";
+    std::cout << "*--------------------------------------------------*\n";
 }

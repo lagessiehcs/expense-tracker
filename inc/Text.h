@@ -50,6 +50,8 @@ constexpr std::string_view NEW_GROUP_TEXT = ".----------------------------------
                                             "|                    NEW GROUP                     |\n"
                                             "|--------------------------------------------------|\n"
                                             "| Enter group name!                                |\n"
+                                            "|                                                  |\n"
+                                            "| (00) Cancel                                      |\n"
                                             "*--------------------------------------------------*\n";
 constexpr std::string_view CHOOSE_GROUP_TEXT = ".--------------------------------------------------.\n"
                                                "|                   CHOOSE GROUP                   |\n"
@@ -86,9 +88,9 @@ constexpr std::string_view CHECK_EXPENSE_TEXT = ".------------------------------
                                                 "|                     EXPENSES                     |\n"
                                                 "|--------------------------------------------------|\n";
 
-// std::string_view SETTLEMENT_TEXT = "-------------------------------------------------\n"
-//                                  "Settlement!\n"
-//                                  "-------------------------------------------------\n";
+constexpr std::string_view SETTLEMENT_TEXT = ".--------------------------------------------------.\n"
+                                             "|                   SETTLEMENTS                    |\n"
+                                             "|--------------------------------------------------|\n";
 
 constexpr std::string_view LEAVE_GROUP_TEXT = ".--------------------------------------------------.\n"
                                               "|                 LEAVING GROUP...                 |\n"
