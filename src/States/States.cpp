@@ -178,6 +178,10 @@ void StateNewUser::_entry()
 void StateNewUser::_during() // TODO: Add option cancel in case users change their mind
 {
     _string_input = get_string("Input: ");
+    if (_string_input == "00")
+    {
+        return;
+    }
     std::cout << std::endl;
     _user_id = add_user(_string_input, _user_umap).id();
 }
@@ -185,6 +189,10 @@ void StateNewUser::_during() // TODO: Add option cancel in case users change the
 StateName StateNewUser::transitions()
 {
     std::system("clear");
+    if (_string_input == "00")
+    {
+        return StateName::START;
+    }
     return StateName::USER_HOME;
 }
 
