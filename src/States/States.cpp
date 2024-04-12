@@ -793,7 +793,7 @@ void StateLeaveGroup::_during()
     {
         _string_input = get_string("Are you sure you want to leave this group? You can join back anytime.\n\n(1) Leave     (00) Cancel\n");
 
-        if (_string_input == "0")
+        if (_string_input == "00")
         {
             std::cout << std::endl;
             break;
