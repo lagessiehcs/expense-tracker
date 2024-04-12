@@ -879,11 +879,8 @@ void StateBalance::_entry()
 {
     std::cout << "Hello " << _user_umap[_user_id].name() << "!\n";
     std::cout << "You are in group: " << _group_umap[_group_id].name() << ".\n";
-    std::cout << "-------------------------------------------------\n";
+    std::cout << BALANCE_TEXT;
     _user_umap[_user_id].show_balance(_group_id);
-    std::cout << std::endl;
-    std::cout << "(0) Back\n";
-    std::cout << "-------------------------------------------------\n";
 }
 
 void StateBalance::_during()

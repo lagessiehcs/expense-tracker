@@ -73,8 +73,9 @@ constexpr std::string_view GROUP_HOME_TEXT = ".---------------------------------
                                              "|                                                  |\n"
                                              "| (0) Back                                         |\n"
                                              "*--------------------------------------------------*\n";
-
-// std::string_view GROUP_MEMBER_TEXT =
+constexpr std::string_view BALANCE_TEXT = ".--------------------------------------------------.\n"
+                                          "|                      BALANCE                     |\n"
+                                          "|--------------------------------------------------|\n";
 
 constexpr std::string_view ADD_EXPENSE_TEXT = ".--------------------------------------------------.\n"
                                               "|                    ADD EXPENSE                   |\n"

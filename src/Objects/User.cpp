@@ -49,19 +49,34 @@ std::unordered_map<unsigned, int> User::balance()
 
 void User::show_balance(unsigned group_id)
 {
-    std::cout << "Your balance:\n";
-    if (_balance[group_id] == 0)
+    char buffer[50];
+    std::string string;
+    std::string spaces;
+
+    auto balance = _balance[group_id];
+
+    std::cout << "| Your balance:                                    |\n";
+    if (balance == 0)
     {
-        std::cout << "You dont get nor owe any money.\n";
+        std::cout << "| You dont get nor owe any money.                  |\n";
     }
-    else if (_balance[group_id] > 0)
+    else if (balance > 0)
     {
-        std::cout << "You get " << _balance[group_id] * 0.01 << " Euro.\n";
+        std::sprintf(buffer, "%.2f", balance * 0.01);
+        string.assign(" You get " + (std::string)buffer + " Euro.");
+        spaces.assign(50 - string.length(), ' ');
+        std::cout << "|" << string << spaces << "|\n";
     }
     else
     {
-        std::cout << "You owe " << -_balance[group_id] * 0.01 << " Euro.\n";
+        std::sprintf(buffer, "%.2f", -balance * 0.01);
+        string.assign(" You owe " + (std::string)buffer + " Euro.");
+        spaces.assign(50 - string.length(), ' ');
+        std::cout << "|" << string << spaces << "|\n";
     }
+    std::cout << "|                                                  |\n";
+    std::cout << "| (0) Back                                         |\n";
+    std::cout << "*--------------------------------------------------*\n";
 }
 
 void User::print_user_groups(const std::unordered_map<unsigned, Group> &group_umap)
