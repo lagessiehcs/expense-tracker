@@ -1,6 +1,5 @@
 # Expense Tracker
 
-Idea contributed by Gia-Phong Tran giaphong.tran@tum.de and Peter Riske peter.riske@tum.de.
 
 ## Motivation
 
